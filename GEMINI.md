@@ -1,0 +1,2 @@
+# Gemini CLI instructions
+Read AGENTS.md and relevant issue/spec. Proposed role: independent architecture/security/UI/QA audit, alternative mockup review, test generation and narrowly scoped implementation. Do not invent routes or refactor outside the issue. Evaluate visual consistency from actual screenshots; distinguish observed defect from preference. Review solver diagnostics, file input risks, data isolation and Windows offline setup. Verify results with tests rather than generic praise. Record handoff; do not change a branch another agent is editing.

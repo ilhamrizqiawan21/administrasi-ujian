@@ -1,0 +1,37 @@
+{
+  "feasible": {
+    "participants": 24,
+    "rooms": 2,
+    "seats_per_room": 12,
+    "staff": 6,
+    "concurrent_slots": 2,
+    "hard_mix_adjacent_grade": true
+  },
+  "infeasible_capacity": {
+    "participants": 25,
+    "capacity": 24,
+    "expected": "INFEASIBLE"
+  },
+  "infeasible_staff": {
+    "available": 1,
+    "concurrent_slots": 2,
+    "expected": "INFEASIBLE"
+  },
+  "interval_overlap": {
+    "session_a": [
+      "08:00",
+      "09:30"
+    ],
+    "session_b": [
+      "09:00",
+      "10:00"
+    ],
+    "same_staff": true,
+    "expected": "CONFLICT"
+  },
+  "finance": {
+    "rate_idr": 50000,
+    "approved_actual_sessions": 3,
+    "expected_honor_idr": 150000
+  }
+}

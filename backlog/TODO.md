@@ -1,0 +1,900 @@
+# Implementation backlog — 206 tracked issues
+Baseline 24 Nov 2026. All unchecked: none implemented. P0 pilot, P1 commercial v1, P2 enhancements. Estimate and assign after spike. For each task implement domain/API/UI only as relevant; do not create empty placeholders in production. Attach acceptance evidence, update docs and state. Split issue into smaller PRs if needed; do not merge multiple unrelated modules.
+
+## Definition of done (applies to each issue)
+- [ ] Requirement and scope confirmed, edge cases/permissions identified.
+- [ ] Domain logic, transactional persistence, migrations/constraints where applicable; no hidden hardcoded data.
+- [ ] Typed bridge contract and validation; frontend uses real adapter, not fake production data.
+- [ ] UI follows repo standards; loading/empty/error/disabled/focus/dark/light/responsive tested where applicable.
+- [ ] Unit/integration and relevant native/manual tests executed; audit/backup/privacy impact assessed.
+- [ ] PR review and acceptance evidence; update changelog/ADR, no broken links, no secrets or PII.
+
+## FND — Foundation
+Dependensi modul awal: none. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **FND-01 [P0] Stack spike**
+  - Implementasi: Buat spike Python/pywebview + Vite, SQLite dan OR-Tools pada Windows x64; pilih versi kompatibel dan lock dependencies.
+  - Acceptance: Native window, bridge dan solver kecil jalan; versi & log dicatat.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **FND-02 [P0] Repository layout**
+  - Implementasi: Init repo private, struktur modular, .gitignore data/secret, lint/format/typecheck dan CI.
+  - Acceptance: CI gagal jika lint/test/typecheck gagal; tidak ada data siswa.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **FND-03 [P0] Application shell**
+  - Implementasi: Composition root, startup splash minimal, exception boundary dan orderly shutdown.
+  - Acceptance: Crash startup menampilkan recovery; window ditutup tanpa transaksi menggantung.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **FND-04 [P0] Storage paths**
+  - Implementasi: Platformdirs, folder per lembaga dan permission check, single-instance lock.
+  - Acceptance: Dua instance tidak menulis DB yang sama; folder read-only ditolak.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **FND-05 [P0] Database bootstrap**
+  - Implementasi: SQLAlchemy engine, FK ON, Alembic, migration lock dan health check.
+  - Acceptance: DB baru dan upgrade fixture sukses; FK invalid ditolak.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **FND-06 [P0] Job runner**
+  - Implementasi: Bounded background workers, cancellation, status progress, atomic outputs.
+  - Acceptance: UI tetap responsif selama 60s job; cancel tidak publish.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **FND-07 [P0] Logging**
+  - Implementasi: Structured logs rotating, correlation IDs dan redaction.
+  - Acceptance: No NISN/nama/path sensitif pada log export.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **FND-08 [P0] Bridge**
+  - Implementasi: Allowlist, Pydantic contract, TS wrapper, readiness, timeout dan errors.
+  - Acceptance: Unknown method/invalid payload rejected; native bridge test.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **FND-09 [P0] Frontend bootstrap**
+  - Implementasi: React strict TS, hash router, error boundary, local assets, mock adapter dev-only.
+  - Acceptance: Offline build jalan; mock tidak masuk bundle production.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## UI — Design system & shared components
+Dependensi modul awal: FND. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **UI-01 [P0] Tokens**
+  - Implementasi: Semantic light/dark palette, typography, density, radius, spacing, motion and CSS variables.
+  - Acceptance: Tidak ada arbitrary hex di feature; contrast audit.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **UI-02 [P0] AppShell**
+  - Implementasi: Navy collapsible sidebar, hamburger, breakpoint, scroll/focus preservation.
+  - Acceptance: 1366x768/1024/800 layout; aria-expanded bekerja.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **UI-03 [P0] Breadcrumb**
+  - Implementasi: Route-aware breadcrumb, current page, event context selector.
+  - Acceptance: Semua route memiliki breadcrumb; switching dirty form ditolak sampai konfirmasi.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **UI-04 [P0] Buttons**
+  - Implementasi: Variants primary/secondary/destructive/icon/export, 32/36/40, loading.
+  - Acceptance: Focus/hover/disabled/aria labels; double-submit prevented.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **UI-05 [P0] DataTable**
+  - Implementasi: TanStack sorting/filter/pagination/column visibility/selection, centered headers, right Actions.
+  - Acceptance: Sort/filter/paging konsisten; overflow hanya tabel.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **UI-06 [P0] RowActions**
+  - Implementasi: View/Edit/Delete icon-only, tooltip, destructive confirm, Word/PDF/Excel icon actions.
+  - Acceptance: Tooltip keyboard accessible; delete via centered alert.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **UI-07 [P0] Forms**
+  - Implementasi: Input, select, date, currency, multi-select, file picker, RHF/Zod inline errors.
+  - Acceptance: Label dan validation jelas; ID leading zero tidak hilang.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **UI-08 [P0] Dialogs**
+  - Implementasi: Centered CRUD modal, backdrop, focus trap, Escape, dirty state, confirm alert.
+  - Acceptance: Focus kembali ke trigger; no destructive shortcut.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **UI-09 [P0] Feedback**
+  - Implementasi: Toast stack, aria-live, skeleton, empty/error/permission/disabled states.
+  - Acceptance: No overlap dengan modal; retry bekerja; reduced motion.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **UI-10 [P0] JobProgress**
+  - Implementasi: Progress phase/count, cancel button, status detail dan retry.
+  - Acceptance: Cancel tidak mengubah data published; loading tidak freeze.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **UI-11 [P0] Theme**
+  - Implementasi: Theme switch, system preference, persistence, local font, brand preview.
+  - Acceptance: Dark/light readable; no network requests.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **UI-12 [P0] Accessibility**
+  - Implementasi: Keyboard nav, focus indicator, screen-reader labels, zoom/DPI checks.
+  - Acceptance: Manual test + automated audit; no blockers.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## CFG — Configuration & onboarding
+Dependensi modul awal: FND, UI. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **CFG-01 [P0] First run**
+  - Implementasi: Wizard data directory, create institution, profile/level/year, skip optional fields.
+  - Acceptance: Bisa selesai tanpa internet; cancel tidak buat partial profile.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **CFG-02 [P0] Institution**
+  - Implementasi: CRUD profile/logo/address/NPSN/NSM/timezone, isolate data.
+  - Acceptance: Switch school does not leak rows; logo validates file.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **CFG-03 [P0] Level presets**
+  - Implementasi: SD/MI SMP/MTs SMA/MA SMK PKBM custom grade labels and order.
+  - Acceptance: Tambah level nonnumerik tanpa code.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **CFG-04 [P0] Exam types**
+  - Implementasi: STS/SAS/SAT/custom labels, default mode and terminology.
+  - Acceptance: Custom type appears in forms/documents.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **CFG-05 [P0] Number policies**
+  - Implementasi: Format prefix/sequence/padding reset scope, preview.
+  - Acceptance: Duplicate numbers blocked; no guess missing values.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **CFG-06 [P0] Config validator**
+  - Implementasi: Typed settings and extension fields, default/reset, revision.
+  - Acceptance: Invalid settings rejected; existing archived snapshots unchanged.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## MST — Master data
+Dependensi modul awal: CFG. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **MST-01 [P0] Students**
+  - Implementasi: Table, CRUD modal, text IDs, active/inactive, optional photo/accommodation.
+  - Acceptance: Duplicate NIS blocked; optional NISN warning; referenced delete protected.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **MST-02 [P0] Staff**
+  - Implementasi: CRUD teacher/TU/external invigilator, staff code, roles, availability link.
+  - Acceptance: External staff accepted without NIP; unique code.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **MST-03 [P0] Classes**
+  - Implementasi: CRUD year, level, rombel, program, enrollment move.
+  - Acceptance: Same label in different year allowed; one active enrollment/year.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **MST-04 [P0] Subjects**
+  - Implementasi: CRUD code/name/category, teacher class subject relation.
+  - Acceptance: Own-subject rule has complete mapping or warns.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **MST-05 [P0] Rooms**
+  - Implementasi: CRUD capacity, mode, desk grid/disabled/accessible seats.
+  - Acceptance: Derived active seat count respects cap.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **MST-06 [P0] Import wizard**
+  - Implementasi: XLSX mapping, preview, duplicate policies skip/update explicit, error report, atomic commit.
+  - Acceptance: Mixed invalid rows handled per chosen policy; leading zero preserved.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **MST-07 [P0] Export masters**
+  - Implementasi: XLSX with text identifier cells, filtered/all scope.
+  - Acceptance: Export count matches scope; formula injection prevented.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **MST-08 [P0] Data quality**
+  - Implementasi: Missing fields, duplicates, inconsistent enrollment, fix links.
+  - Acceptance: Issue list actionable; no silent merge.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## EVT — Exam workspace
+Dependensi modul awal: MST. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **EVT-01 [P0] Event wizard**
+  - Implementasi: Create title/year/semester/date/mode/type, select eligible classes/students.
+  - Acceptance: End date >= start; no participant outside selection.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **EVT-02 [P0] Snapshot**
+  - Implementasi: Copy participants/staff/rooms/subjects/teaching relations and settings to versioned event.
+  - Acceptance: Changing master does not rewrite published plan.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **EVT-03 [P0] Participant numbering**
+  - Implementasi: Generate preview with prefix/pad/order, manual override unique.
+  - Acceptance: Collision blocks publish; printed cards stale after change.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **EVT-04 [P0] Group management**
+  - Implementasi: Exam groups class/program/custom membership, requirements and attempts.
+  - Acceptance: Group membership validated; no conflicting duplicate requirements.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **EVT-05 [P0] Lifecycle**
+  - Implementasi: DRAFT/PREPARATION/READY/RUNNING/COMPLETED/ARCHIVED policy gates.
+  - Acceptance: Cannot READY with hard conflicts; reopen audited.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **EVT-06 [P0] Event clone**
+  - Implementasi: Copy selected configuration, not transactions/presences/old document numbers.
+  - Acceptance: New event clean and source preserved.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **EVT-07 [P0] Dashboard**
+  - Implementasi: Derived counts, readiness checklist, deadline, next session, actionable problems.
+  - Acceptance: No fake KPI; zero/empty handled correctly.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## SES — Exam timetable
+Dependensi modul awal: EVT. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **SES-01 [P0] Calendar**
+  - Implementasi: Set exam dates, holidays, break windows, local timezones.
+  - Acceptance: Overnight/overlap rejected per policy.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **SES-02 [P0] Sessions**
+  - Implementasi: Create start/end/duration, labels, order, room mode.
+  - Acceptance: Distinct IDs with overlapping intervals detected.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **SES-03 [P0] Subject mapping**
+  - Implementasi: Map group/subject to eligible sessions, manual assignment.
+  - Acceptance: Every required paper assigned exactly once before publish.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **SES-04 [P0] Timetable grid**
+  - Implementasi: Date/session/grade tabs, room rows, move/lock actions.
+  - Acceptance: Move respects conflicts and locked cells.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **SES-05 [P0] Validator**
+  - Implementasi: Independent participant, room, mode, duration, availability checks.
+  - Acceptance: Detailed conflicting IDs and resolution path.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **SES-06 [P0] Plan revisions**
+  - Implementasi: Draft/validated/published/superseded, optimistic revision and atomic publish.
+  - Acceptance: Stale input blocks publish; prior plan retained.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **SES-07 [P1] Schedule auto generation**
+  - Implementasi: CP-SAT optional timetable generator with preferences and time limit.
+  - Acceptance: Feasible draft or diagnostics; no partial publish.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## ROM — Room allocation and denah
+Dependensi modul awal: SES. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **ROM-01 [P0] Room editor**
+  - Implementasi: Grid rows/cols, seats per desk, disabled cells, board orientation, accessible seats.
+  - Acceptance: Capacity reflects enabled slots; coordinates bounded.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **ROM-02 [P0] Allocation policy**
+  - Implementasi: Mix grade/rombel/custom/ordered, hard vs soft, balance and accommodations.
+  - Acceptance: Hard options distinguished; impossible mix explained.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **ROM-03 [P0] Candidate builder**
+  - Implementasi: Eligible participants, scope, room modes, locks and seat candidates.
+  - Acceptance: No unavailable seat or noneligible candidate.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **ROM-04 [P0] Solver**
+  - Implementasi: CP-SAT/heuristic allocation with seed, penalties, time budget.
+  - Acceptance: Unique occupancy and each eligible person once; validator pass.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **ROM-05 [P0] Diagnostics**
+  - Implementasi: Capacity shortfall, same-level adjacency counts, accommodation conflict.
+  - Acceptance: No silent relaxation; display remaining soft violations.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **ROM-06 [P0] Canvas**
+  - Implementasi: Konva room grid, labeled seats, zoom/pan, accessible list alternate.
+  - Acceptance: Keyboard swap works; labels not color alone.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **ROM-07 [P0] Manual adjustments**
+  - Implementasi: Drag/swap, lock, undo/redo, revision validation.
+  - Acceptance: Atomic swap; rejected conflict does not modify layout.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **ROM-08 [P0] Publish & print**
+  - Implementasi: Freeze allocation version, document stale flags and denah context.
+  - Acceptance: Reprint old plan unchanged; new draft after edit.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## SCH — Invigilation scheduling
+Dependensi modul awal: SES, ROM. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **SCH-01 [P0] Availability**
+  - Implementasi: Per staff date/session interval, unavailable reasons, limits, role skills.
+  - Acceptance: Overlap not based only on session ID.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **SCH-02 [P0] Requirements**
+  - Implementasi: Per room-session primary/secondary/proctor/backup slots.
+  - Acceptance: Slot counts configurable by mode.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **SCH-03 [P0] Solver rules**
+  - Implementasi: Hard/soft own class/mapel, max daily/total, fixed locks, workload preferences.
+  - Acceptance: All hard checks independent; weights documented.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **SCH-04 [P0] Optimizer**
+  - Implementasi: Local CP-SAT model and diagnostics, seed/time limit, result status.
+  - Acceptance: Feasible complete draft; infeasible/unknown not published.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **SCH-05 [P0] Workload**
+  - Implementasi: Counts per staff/day, min/max, deviation, soft rule summary.
+  - Acceptance: Counts match assignment list; weighted part-time target supported.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **SCH-06 [P0] Grid review**
+  - Implementasi: Filter date/person/room, manual replace, lock, conflict display.
+  - Acceptance: Replacement validates overlap and availability.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **SCH-07 [P0] Publish**
+  - Implementasi: Atomic versioned schedule, stale document invalidation and approval.
+  - Acceptance: Concurrent edit rejects outdated draft.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **SCH-08 [P0] Reserve**
+  - Implementasi: Assign stand-by staff separately, nonoverlap and replacement path.
+  - Acceptance: Reserve not counted as active duty until actual assignment.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## COM — Committee and meetings
+Dependensi modul awal: EVT. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **COM-01 [P1] Role tree**
+  - Implementasi: Dynamic role CRUD, parent relation, sort, multiple members.
+  - Acceptance: Cycle rejected; role labels custom.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **COM-02 [P1] Membership**
+  - Implementasi: Assign staff/external people, role date, job description.
+  - Acceptance: No duplicate member within role; same person may have multiple roles.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **COM-03 [P1] Organization chart**
+  - Implementasi: Tree layout, export data to structure document.
+  - Acceptance: All roles present; long names wrap.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **COM-04 [P1] Program kerja**
+  - Implementasi: Editable objectives, basis, milestones, jobdesc and sections.
+  - Acceptance: No invented regulation; snapshots used for LPJ.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **COM-05 [P1] Meeting records**
+  - Implementasi: Agenda, invitation, minutes, decisions, attendance.
+  - Acceptance: Each attendee once; date/time preserved.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **COM-06 [P1] Signatories**
+  - Implementasi: Multi signer roles, position, names, dates, optional signature asset.
+  - Acceptance: Missing required signer blocks final docs; no auto forged signature.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## TSK — Tasks
+Dependensi modul awal: COM. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **TSK-01 [P1] Task presets**
+  - Implementasi: Reusable preparation/implementation/closing template with offsets.
+  - Acceptance: Relative due dates recalc to event; editable.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **TSK-02 [P1] Task table**
+  - Implementasi: CRUD title/PIC/priority/deadline/status, search and filters.
+  - Acceptance: Required fields inline; missing PIC flagged.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **TSK-03 [P1] Dependencies**
+  - Implementasi: DAG and subtasks, blocked reason, done validation.
+  - Acceptance: Cycles blocked; completion policy enforced.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **TSK-04 [P1] Timeline**
+  - Implementasi: List/calendar view and overdue counts.
+  - Acceptance: Local date timezone correct; archived readonly.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **TSK-05 [P1] Evidence**
+  - Implementasi: Attach file, note, completion date and actor.
+  - Acceptance: Asset validated; audit records state transitions.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## EXP — Ekspedisi and material
+Dependensi modul awal: EVT, COM. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **EXP-01 [P1] Requirement matrix**
+  - Implementasi: Per class/subject/paper expected kisi-kisi, naskah, kunci, kartu soal, nilai.
+  - Acceptance: Custom item type; no duplicate expected record.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **EXP-02 [P1] Receipt**
+  - Implementasi: Receive dates, owner, reviewer, revision, attach file.
+  - Acceptance: Replacement creates version; prior validation invalidated.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **EXP-03 [P1] Review**
+  - Implementasi: Status transition received/revision/valid/ready, notes and approval.
+  - Acceptance: Invalid transition rejected; history available.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **EXP-04 [P1] Print quantities**
+  - Implementasi: Room/paper quantities + reserve, check CBT excludes paper when configured.
+  - Acceptance: Totals reconcile roster; manual override audited.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **EXP-05 [P1] Handover**
+  - Implementasi: Record sender/receiver, material type, count, time, discrepancy.
+  - Acceptance: Quantity nonnegative; mismatch flagged.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **EXP-06 [P1] Reports**
+  - Implementasi: Matrix filters, late list, export expedition, packaging labels.
+  - Acceptance: Counts agree with expected items, missing visible.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## OPS — Exam execution
+Dependensi modul awal: SCH, EXP. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **OPS-01 [P1] Session monitor**
+  - Implementasi: Actual state scheduled/in progress/finished, per room progress.
+  - Acceptance: Unrecorded not marked absent; counts derived.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **OPS-02 [P1] Student attendance**
+  - Implementasi: Bulk mark/individual edit, status, date, notes, save by room-session.
+  - Acceptance: Each sitting once; bulk action preview.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **OPS-03 [P1] Staff attendance**
+  - Implementasi: Planned vs actual, absence/substitute, validation/approval.
+  - Acceptance: Actual replacement no overlap; original plan intact.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **OPS-04 [P1] Committee attendance**
+  - Implementasi: Day/shift records, custom status, role filter.
+  - Acceptance: Unique person/day/shift.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **OPS-05 [P1] Berita acara**
+  - Implementasi: Per room session, derived counts, editable remarks, signer and finalize.
+  - Acceptance: Missing attendance warning; finalized snapshot immutable.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **OPS-06 [P1] Incident log**
+  - Implementasi: Late, violation, technical issue, action/resolution, confidentiality.
+  - Acceptance: Sensitive notes not exported unless selected.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **OPS-07 [P1] Make-up**
+  - Implementasi: Eligibility from absence, new session/room assignment, linked original.
+  - Acceptance: Original absence preserved; no duplicate sitting or honor.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **OPS-08 [P1] Closing checklist**
+  - Implementasi: Handover and collection completeness, outstanding issues, completion gate.
+  - Acceptance: Blocked if configured mandatory items missing.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## TPL — Template and branding
+Dependensi modul awal: UI, CFG. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **TPL-01 [P0] Letterhead manual**
+  - Implementasi: Fields, one/two logos, alignment, line style, paper and preview.
+  - Acceptance: Long school name wraps; PNG transparent supported.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **TPL-02 [P0] Upload letterhead**
+  - Implementasi: Image upload crop/fit, embedded DOCX kop, version storage.
+  - Acceptance: Invalid image rejected; aspect preserved.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **TPL-03 [P0] Template catalog**
+  - Implementasi: Built-ins by type, clone/custom/version/activate, default per event.
+  - Acceptance: Existing document points to original version.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **TPL-04 [P0] Word mapping**
+  - Implementasi: Upload docx, extract allowlisted placeholders, map fields, validation.
+  - Acceptance: Unknown tags shown; macro/external relationships rejected.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **TPL-05 [P0] Layout settings**
+  - Implementasi: Paper/margins/font/signature/columns/body clauses, preview.
+  - Acceptance: F4 explicit size; no clipped text/rows.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **TPL-06 [P1] Brand editor**
+  - Implementasi: App identity, palette/density/sidebar/theme presets preview and reset.
+  - Acceptance: Contrast rejection, per-school persistence and no arbitrary CSS.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **TPL-07 [P2] Visual canvas**
+  - Implementasi: P2 drag/text/logo/table/QR variable binding, grid snap, keyboard alternative.
+  - Acceptance: Schema bounds validated; print coordinates match preview.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## DOC — Document engine
+Dependensi modul awal: TPL, SCH. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **DOC-01 [P0] Context builder**
+  - Implementasi: Typed context per scope, plan revision and data validation.
+  - Acceptance: Missing required field blocks final export.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **DOC-02 [P0] DOCX renderer**
+  - Implementasi: Sandbox docxtpl, tables, loops, signatures, editable output.
+  - Acceptance: Valid DOCX and golden inspection; no arbitrary execution.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **DOC-03 [P0] PDF renderer**
+  - Implementasi: ReportLab flowables, page templates, fonts, repeating header and page break.
+  - Acceptance: Long name and table fit; signatory stays together.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **DOC-04 [P0] Document center**
+  - Implementasi: Catalog, scope and template picker, preview, export/print.
+  - Acceptance: Correct scope shown; loading/cancel/error work.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **DOC-05 [P0] Batch jobs**
+  - Implementasi: Individual/combined PDF, ZIP of DOCX, safe filenames, collision policy.
+  - Acceptance: 200 cards correct count; atomic cancel and cleanup.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **DOC-06 [P0] Number registry**
+  - Implementasi: Reserve unique numbering only on final generate; void on failure.
+  - Acceptance: Preview does not consume number; duplicates blocked.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **DOC-07 [P0] Version history**
+  - Implementasi: Store context hash/template/plan/output hash, stale indicator and reprint.
+  - Acceptance: Archived output byte-identical; stale flagged.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **DOC-08 [P0] XLSX export**
+  - Implementasi: Typed cells, styles, column widths, repeat print headings.
+  - Acceptance: Leading zeros and currency numeric types preserved.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **DOC-09 [P0] Print integration**
+  - Implementasi: Native PDF preview/print dialog workflow, scale and page options.
+  - Acceptance: Works offline; print cancellation leaves no fake success.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## FIN — Budget and finance
+Dependensi modul awal: COM, OPS. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **FIN-01 [P1] Budget categories**
+  - Implementasi: Custom category hierarchy, source funds and unit definitions.
+  - Acceptance: Cycle prevented; archived category retained.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **FIN-02 [P1] RAB editor**
+  - Implementasi: Qty, unit, rate integer, rounding policy and subtotal/total, version approval.
+  - Acceptance: Calculated totals exact; invalid negative qty rejected.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **FIN-03 [P1] Ledger**
+  - Implementasi: Income/expense draft approval posted, date/reference/payee, attachments.
+  - Acceptance: Posted record immutable; reversal links and totals correct.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **FIN-04 [P1] Budget variance**
+  - Implementasi: Compare approved RAB vs actual by category, warning/policy block.
+  - Acceptance: No float drift; source totals reconcile.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **FIN-05 [P1] Honor rules**
+  - Implementasi: Per role/session/day/fixed rate with effective snapshot.
+  - Acceptance: Rate change not retroactive without adjustment.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **FIN-06 [P1] Honor generation**
+  - Implementasi: Approved actual staff duty + committee records, dedupe source keys.
+  - Acceptance: Replacement paid per actual policy; rerun not duplicate.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **FIN-07 [P1] Payment & receipt**
+  - Implementasi: Generate payment list/kuitansi, amount in words, mark payment linked entry.
+  - Acceptance: No double-post; draft preview no cash impact.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **FIN-08 [P1] Finance reports**
+  - Implementasi: Cashbook running balance, rekap honor, RAB/realisasi and export.
+  - Acceptance: Closing balance equals ledger; filters explicit.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## LPJ — Reporting and LPJ
+Dependensi modul awal: FIN, OPS, DOC. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **LPJ-01 [P1] LPJ builder**
+  - Implementasi: Structured sections, narrative editing, derived tables readonly.
+  - Acceptance: Totals cannot be overwritten by narrative edit.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **LPJ-02 [P1] Evaluation**
+  - Implementasi: Collect issues, resolutions, recommendations and PIC.
+  - Acceptance: Links to incident where relevant; custom notes.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **LPJ-03 [P1] Attachments**
+  - Implementasi: Select documents/assets, order, manifest, preview.
+  - Acceptance: Missing attachment blocks final or explicit exclusion.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **LPJ-04 [P1] Finalization**
+  - Implementasi: Snapshot source versions, reconcile ledger/attendance, draft/final approval.
+  - Acceptance: Unbalanced/incomplete state blocked by policy; new revision after edit.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **LPJ-05 [P1] Export**
+  - Implementasi: DOCX and PDF with cover, approval, TOC/page index and appendix pack.
+  - Acceptance: Readable multi-page layout, no missing pages, version preserved.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## ARC — Archive
+Dependensi modul awal: LPJ. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **ARC-01 [P1] Archive browser**
+  - Implementasi: Filter academic year, type, event status, read-only detail.
+  - Acceptance: Archived event no edit through bridge.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **ARC-02 [P1] Archive package**
+  - Implementasi: ZIP docs + metadata/manifest/hashes, selective personal info.
+  - Acceptance: Zip validates all expected files; no path traversal.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **ARC-03 [P1] Duplicate**
+  - Implementasi: Clone policies and template references, not actuals.
+  - Acceptance: New event starts draft; source history remains.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **ARC-04 [P1] Retention**
+  - Implementasi: Review data age, authorized deletion with backup and impact preview.
+  - Acceptance: No dangling references; last good backup retained.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## BAK — Backup and recovery
+Dependensi modul awal: FND. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **BAK-01 [P0] Backup**
+  - Implementasi: SQLite backup API + asset manifest under consistent lock, atomic ZIP.
+  - Acceptance: Restore test passes; checksum verification.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **BAK-02 [P0] Schedule**
+  - Implementasi: Local periodic backup on startup/close, retention settings.
+  - Acceptance: No silent delete last good; failure visible.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **BAK-03 [P0] Restore wizard**
+  - Implementasi: Validate paths/hash/schema, preview counts, stage, backup current, atomic swap.
+  - Acceptance: Corrupt backup leaves current unchanged.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **BAK-04 [P0] Recovery**
+  - Implementasi: Interrupted job cleanup, integrity check, repair guidance and diagnostics.
+  - Acceptance: Crash simulated; no partial publish or orphan visible.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## LIC — Commercial licensing
+Dependensi modul awal: FND, CFG. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **LIC-01 [P1] Policy**
+  - Implementasi: Document Rp150k per school once, version scope/support/transfer and beta terms.
+  - Acceptance: Owner approves written terms.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **LIC-02 [P1] Signer**
+  - Implementasi: Separate offline license issuer key handling, signature format.
+  - Acceptance: Private key never in repo/app; tamper rejected.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **LIC-03 [P1] Activation**
+  - Implementasi: Import signed license, show institution/edition/status, offline validation.
+  - Acceptance: No network/PII telemetry; valid and invalid fixtures.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **LIC-04 [P1] Grace & recovery**
+  - Implementasi: Read-only/export/backup if license invalid, renewal/transfer flow.
+  - Acceptance: No data loss; cannot falsely promise anti-piracy.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## QA — Testing and quality
+Dependensi modul awal: FND. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **QA-01 [P0] Unit tests**
+  - Implementasi: pytest domain validation, state machine, numbering, integer finance.
+  - Acceptance: Boundary tests and failure paths run.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **QA-02 [P0] Integration**
+  - Implementasi: SQLite transaction/migration/bridge contract and storage safety.
+  - Acceptance: Rollback and FK tests pass.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **QA-03 [P0] Solver oracle**
+  - Implementasi: Small feasible/infeasible cases, overlap, locks, seed, timeout.
+  - Acceptance: Independent invariants checked.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **QA-04 [P0] Document golden**
+  - Implementasi: PDF pages, DOCX open, long fields, Unicode, A4/F4 and batch.
+  - Acceptance: Actual output inspected, no clipped tables.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **QA-05 [P0] UI states**
+  - Implementasi: Vitest/Testing Library keyboard/modal/empty/loading/error/dark.
+  - Acceptance: No focus trap failure; loading buttons disabled.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **QA-06 [P0] Browser E2E**
+  - Implementasi: Playwright mock flows with explicit adapter.
+  - Acceptance: No claim this proves native app.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **QA-07 [P0] Native smoke**
+  - Implementasi: Windows bridge, file dialogs, jobs, real export and print.
+  - Acceptance: Clean offline VM works without Python/Node.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **QA-08 [P0] Performance**
+  - Implementasi: Benchmark 500 and 2000 participant fixtures, memory and solver time.
+  - Acceptance: Record actual hardware/p95; thresholds agreed.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **QA-09 [P1] Pilot UAT**
+  - Implementasi: 3 schools across jenjang, actual formats and cycle feedback.
+  - Acceptance: Owner acceptance recorded; no real PII in repo.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## REL — Build and distribution
+Dependensi modul awal: FND, BAK. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
+- [ ] **REL-01 [P0] Windows build**
+  - Implementasi: PyInstaller on Windows clean venv, bundled UI/fonts/templates/OR-Tools.
+  - Acceptance: Executable starts offline; no external assets.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **REL-02 [P0] Installer**
+  - Implementasi: Inno Setup, WebView2 offline redistributable detection and install.
+  - Acceptance: Clean VM with/without runtime tested.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **REL-03 [P0] Upgrade**
+  - Implementasi: Pre-migration backup, version compatibility, uninstall data retention.
+  - Acceptance: Upgrade fixture successful; rollback instructions.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **REL-04 [P0] Notices**
+  - Implementasi: Dependency license audit, SBOM, checksum, release notes.
+  - Acceptance: No restricted assets; distribution rights confirmed.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **REL-05 [P0] Support**
+  - Implementasi: User guide and redacted diagnostics export, FAQ/restore instructions.
+  - Acceptance: Nontechnical tester can install and restore.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+- [ ] **REL-06 [P1] Commercial gate**
+  - Implementasi: P1 acceptance, license issue and pilot signoff before price launch.
+  - Acceptance: All P0/P1 gates pass or explicit scope reduction; no unsupported claims.
+  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+
+## DCT — Built-in document templates
+Dependensi: DOC context/rendering dan domain sumber masing-masing. Setiap tipe merupakan tugas independen; scope dan format dari catalog.
+- [ ] **DCT-01 [P1] Program kerja**
+  - [ ] Context schema: event; tujuan, dasar, jadwal, kepanitiaan, RAB.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-02 [P1] Proposal kegiatan**
+  - [ ] Context schema: event; tujuan, target, anggaran.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-03 [P1] Timeline kegiatan**
+  - [ ] Context schema: event; tasks, deadline, PIC.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-04 [P1] RAB**
+  - [ ] Context schema: event; budget version, line totals.
+  - [ ] Template dan ekspor: DOCX PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-05 [P1] SK panitia**
+  - [ ] Context schema: event; roles, members, signatory.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-06 [P1] SK pengawas**
+  - [ ] Context schema: event; staff, planned assignments.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-07 [P1] SK penyusun soal**
+  - [ ] Context schema: event; subject, class, staff.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-08 [P1] Struktur panitia**
+  - [ ] Context schema: event; role tree, names.
+  - [ ] Template dan ekspor: PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-09 [P1] Uraian tugas**
+  - [ ] Context schema: role; jobdesc, member.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-10 [P1] Pakta integritas**
+  - [ ] Context schema: person; name, role, editable clauses.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-11 [P0] Surat tugas mengawas**
+  - [ ] Context schema: person; person, sessions, rooms, number.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-12 [P1] Undangan rapat**
+  - [ ] Context schema: meeting; agenda, date, recipients.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-13 [P1] Pemberitahuan orang tua**
+  - [ ] Context schema: class/event; event, dates, editable notes.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-14 [P1] Pemberitahuan guru**
+  - [ ] Context schema: event; schedule, rules.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-15 [P1] Permohonan pengawas silang**
+  - [ ] Context schema: event; recipient, dates, need.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-16 [P1] Surat dispensasi**
+  - [ ] Context schema: person; participant, reason, approval.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-17 [P1] Surat izin ujian susulan**
+  - [ ] Context schema: person; original, makeup, date.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-18 [P1] Surat keterangan mengikuti ujian**
+  - [ ] Context schema: person; participant, attendance.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-19 [P1] Surat kustom**
+  - [ ] Context schema: scope; number, recipient, body, signatures.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-20 [P0] Daftar nominasi peserta**
+  - [ ] Context schema: event/class; participant snapshot.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-21 [P0] Kartu peserta STS/SAS/SAT/kustom**
+  - [ ] Context schema: person; number, name, class, photo optional, period.
+  - [ ] Template dan ekspor: PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-22 [P0] Daftar ruang dan peserta**
+  - [ ] Context schema: room; room, ordered roster.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-23 [P0] Nomor meja**
+  - [ ] Context schema: seat; participant number, desk, room.
+  - [ ] Template dan ekspor: PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-24 [P0] Daftar hadir peserta**
+  - [ ] Context schema: room/session; planned participants, blank/actual marks.
+  - [ ] Template dan ekspor: PDF DOCX XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-25 [P1] Daftar peserta susulan**
+  - [ ] Context schema: session; absence, makeup eligibility.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-26 [P0] Denah duduk**
+  - [ ] Context schema: room/session; seat coordinates, legend, board orientation.
+  - [ ] Template dan ekspor: PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-27 [P1] Denah lokasi ruang**
+  - [ ] Context schema: event; room layout manual.
+  - [ ] Template dan ekspor: PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-28 [P0] Label ruangan**
+  - [ ] Context schema: room; room code, capacity.
+  - [ ] Template dan ekspor: PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-29 [P1] Tata tertib ruang**
+  - [ ] Context schema: room/event; editable clauses.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-30 [P0] Jadwal ujian**
+  - [ ] Context schema: event; session, date, groups, mapel.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-31 [P0] Jadwal pengawas**
+  - [ ] Context schema: event; planned slots.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-32 [P0] Jadwal per kelas**
+  - [ ] Context schema: class; group requirements.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-33 [P0] Jadwal per ruang**
+  - [ ] Context schema: room; room sessions.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-34 [P0] Jadwal individu pengawas**
+  - [ ] Context schema: person; assignments, time.
+  - [ ] Template dan ekspor: PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-35 [P0] Berita acara**
+  - [ ] Context schema: room/session; planned, actual counts, incidents, signatures.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-36 [P1] Daftar hadir pengawas**
+  - [ ] Context schema: day/session; planned and actual staff.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-37 [P1] Daftar hadir panitia**
+  - [ ] Context schema: day/shift; committee roles, actual.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-38 [P1] Daftar hadir rapat**
+  - [ ] Context schema: meeting; attendees.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-39 [P1] Notulen rapat**
+  - [ ] Context schema: meeting; minutes, decisions, PIC.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-40 [P1] Jurnal pelaksanaan**
+  - [ ] Context schema: day/event; sessions, notes.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-41 [P1] Catatan pelanggaran**
+  - [ ] Context schema: room/session; incidents, resolution.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-42 [P1] Laporan kendala teknis**
+  - [ ] Context schema: room/session; mode CBT, issue, resolution.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-43 [P1] Ekspedisi kisi-kisi**
+  - [ ] Context schema: event; due, received, validation.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-44 [P1] Ekspedisi naskah soal**
+  - [ ] Context schema: event; version, received, status.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-45 [P1] Ekspedisi kunci/kartu soal**
+  - [ ] Context schema: event; requirement, version, status.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-46 [P1] Serah terima naskah**
+  - [ ] Context schema: room/session; qty, sender, receiver.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-47 [P1] Serah terima lembar jawaban**
+  - [ ] Context schema: room/session; qty, sender, receiver.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-48 [P1] Sampul amplop soal**
+  - [ ] Context schema: room/session/paper; mapel, group, quantities.
+  - [ ] Template dan ekspor: PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-49 [P1] Rekap penggandaan**
+  - [ ] Context schema: event; paper qty + configurable reserve.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-50 [P1] Ekspedisi pengumpulan nilai**
+  - [ ] Context schema: event; mapel/class, receipt status.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-51 [P1] Buku kas**
+  - [ ] Context schema: event; posted entries, running balance.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-52 [P1] Kuitansi**
+  - [ ] Context schema: entry; amount, terbilang, payee.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-53 [P1] Daftar honor panitia**
+  - [ ] Context schema: event; approved lines, signatures.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-54 [P1] Daftar honor pengawas**
+  - [ ] Context schema: event; approved actual sessions, rate.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-55 [P1] Realisasi anggaran**
+  - [ ] Context schema: event; RAB vs posted totals.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-56 [P1] LPJ kegiatan**
+  - [ ] Context schema: event; snapshot, narrative, operations, evaluation.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-57 [P1] LPJ keuangan**
+  - [ ] Context schema: event; ledger, reconciliation, attachments.
+  - [ ] Template dan ekspor: DOCX PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-58 [P1] Evaluasi pelaksanaan**
+  - [ ] Context schema: event; issues, actions, outcomes.
+  - [ ] Template dan ekspor: DOCX PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-59 [P1] Daftar lampiran LPJ**
+  - [ ] Context schema: event; numbered manifest, documents.
+  - [ ] Template dan ekspor: PDF; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.
+- [ ] **DCT-60 [P1] Rekap presensi dan susulan**
+  - [ ] Context schema: event; attendance, linked makeup.
+  - [ ] Template dan ekspor: PDF XLSX; kop, tanda tangan, ukuran/margin sesuai tipe.
+  - [ ] Preview/golden test: scope benar, field wajib valid, nama panjang, halaman/hasil ekspor dapat dibuka.

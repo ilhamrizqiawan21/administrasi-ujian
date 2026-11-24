@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ujian Cerdas bridge envelope (draft)",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "method",
+        "request_id",
+        "payload"
+      ],
+      "properties": {
+        "method": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_.]+$"
+        },
+        "request_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "payload": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "ok",
+        "request_id",
+        "data"
+      ],
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "data": {}
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "ok",
+        "request_id",
+        "error"
+      ],
+      "properties": {
+        "ok": {
+          "const": false
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "error": {
+          "type": "object",
+          "required": [
+            "code",
+            "message"
+          ],
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "field_errors": {
+              "type": "object"
+            },
+            "details": {
+              "type": "object"
+            },
+            "retryable": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  ]
+}

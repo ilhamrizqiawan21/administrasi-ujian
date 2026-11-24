@@ -1,0 +1,2 @@
+# Synthetic fixture
+`students.csv`, `staff.csv`, `rooms.csv` and `scenarios.json` contain fictional test identifiers; not production seed. Use to test import mapping, mixed classes and infeasible rules. No fixtures automatically appear in production. Build XLSX equivalents during import task. Test leading zero preservation by setting cell type string; include invalid/duplicate rows as a separate test. The HTML mockup uses separate fictional data and cannot write to the app.
