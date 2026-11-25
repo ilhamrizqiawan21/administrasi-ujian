@@ -15,422 +15,422 @@ Dependensi modul awal: none. Dependency item di bawah bersifat gate, bukan uruta
   - Implementasi: Buat spike Python/pywebview + Vite, SQLite dan OR-Tools pada Windows x64; pilih versi kompatibel dan lock dependencies.
   - Acceptance: Native window, bridge dan solver kecil jalan; versi & log dicatat.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **FND-02 [P0] Repository layout**
+- [x] **FND-02 [P0] Repository layout**
   - Implementasi: Init repo private, struktur modular, .gitignore data/secret, lint/format/typecheck dan CI.
   - Acceptance: CI gagal jika lint/test/typecheck gagal; tidak ada data siswa.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **FND-03 [P0] Application shell**
+- [x] **FND-03 [P0] Application shell**
   - Implementasi: Composition root, startup splash minimal, exception boundary dan orderly shutdown.
   - Acceptance: Crash startup menampilkan recovery; window ditutup tanpa transaksi menggantung.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **FND-04 [P0] Storage paths**
+- [x] **FND-04 [P0] Storage paths**
   - Implementasi: Platformdirs, folder per lembaga dan permission check, single-instance lock.
   - Acceptance: Dua instance tidak menulis DB yang sama; folder read-only ditolak.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **FND-05 [P0] Database bootstrap**
+- [x] **FND-05 [P0] Database bootstrap**
   - Implementasi: SQLAlchemy engine, FK ON, Alembic, migration lock dan health check.
   - Acceptance: DB baru dan upgrade fixture sukses; FK invalid ditolak.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **FND-06 [P0] Job runner**
+- [x] **FND-06 [P0] Job runner**
   - Implementasi: Bounded background workers, cancellation, status progress, atomic outputs.
   - Acceptance: UI tetap responsif selama 60s job; cancel tidak publish.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **FND-07 [P0] Logging**
+- [x] **FND-07 [P0] Logging**
   - Implementasi: Structured logs rotating, correlation IDs dan redaction.
   - Acceptance: No NISN/nama/path sensitif pada log export.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **FND-08 [P0] Bridge**
+- [x] **FND-08 [P0] Bridge**
   - Implementasi: Allowlist, Pydantic contract, TS wrapper, readiness, timeout dan errors.
   - Acceptance: Unknown method/invalid payload rejected; native bridge test.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **FND-09 [P0] Frontend bootstrap**
+- [x] **FND-09 [P0] Frontend bootstrap**
   - Implementasi: React strict TS, hash router, error boundary, local assets, mock adapter dev-only.
   - Acceptance: Offline build jalan; mock tidak masuk bundle production.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
 
 ## UI — Design system & shared components
 Dependensi modul awal: FND. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **UI-01 [P0] Tokens**
+- [x] **UI-01 [P0] Tokens**
   - Implementasi: Semantic light/dark palette, typography, density, radius, spacing, motion and CSS variables.
   - Acceptance: Tidak ada arbitrary hex di feature; contrast audit.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **UI-02 [P0] AppShell**
+- [x] **UI-02 [P0] AppShell**
   - Implementasi: Navy collapsible sidebar, hamburger, breakpoint, scroll/focus preservation.
   - Acceptance: 1366x768/1024/800 layout; aria-expanded bekerja.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **UI-03 [P0] Breadcrumb**
+- [x] **UI-03 [P0] Breadcrumb**
   - Implementasi: Route-aware breadcrumb, current page, event context selector.
   - Acceptance: Semua route memiliki breadcrumb; switching dirty form ditolak sampai konfirmasi.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **UI-04 [P0] Buttons**
+- [x] **UI-04 [P0] Buttons**
   - Implementasi: Variants primary/secondary/destructive/icon/export, 32/36/40, loading.
   - Acceptance: Focus/hover/disabled/aria labels; double-submit prevented.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **UI-05 [P0] DataTable**
+- [x] **UI-05 [P0] DataTable**
   - Implementasi: TanStack sorting/filter/pagination/column visibility/selection, centered headers, right Actions.
   - Acceptance: Sort/filter/paging konsisten; overflow hanya tabel.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **UI-06 [P0] RowActions**
+- [x] **UI-06 [P0] RowActions**
   - Implementasi: View/Edit/Delete icon-only, tooltip, destructive confirm, Word/PDF/Excel icon actions.
   - Acceptance: Tooltip keyboard accessible; delete via centered alert.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **UI-07 [P0] Forms**
+- [x] **UI-07 [P0] Forms**
   - Implementasi: Input, select, date, currency, multi-select, file picker, RHF/Zod inline errors.
   - Acceptance: Label dan validation jelas; ID leading zero tidak hilang.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **UI-08 [P0] Dialogs**
+- [x] **UI-08 [P0] Dialogs**
   - Implementasi: Centered CRUD modal, backdrop, focus trap, Escape, dirty state, confirm alert.
   - Acceptance: Focus kembali ke trigger; no destructive shortcut.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **UI-09 [P0] Feedback**
+- [x] **UI-09 [P0] Feedback**
   - Implementasi: Toast stack, aria-live, skeleton, empty/error/permission/disabled states.
   - Acceptance: No overlap dengan modal; retry bekerja; reduced motion.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **UI-10 [P0] JobProgress**
+- [x] **UI-10 [P0] JobProgress**
   - Implementasi: Progress phase/count, cancel button, status detail dan retry.
   - Acceptance: Cancel tidak mengubah data published; loading tidak freeze.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **UI-11 [P0] Theme**
+- [x] **UI-11 [P0] Theme**
   - Implementasi: Theme switch, system preference, persistence, local font, brand preview.
   - Acceptance: Dark/light readable; no network requests.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **UI-12 [P0] Accessibility**
+- [x] **UI-12 [P0] Accessibility**
   - Implementasi: Keyboard nav, focus indicator, screen-reader labels, zoom/DPI checks.
   - Acceptance: Manual test + automated audit; no blockers.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
 
 ## CFG — Configuration & onboarding
 Dependensi modul awal: FND, UI. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **CFG-01 [P0] First run**
+- [x] **CFG-01 [P0] First run**
   - Implementasi: Wizard data directory, create institution, profile/level/year, skip optional fields.
   - Acceptance: Bisa selesai tanpa internet; cancel tidak buat partial profile.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **CFG-02 [P0] Institution**
+- [x] **CFG-02 [P0] Institution**
   - Implementasi: CRUD profile/logo/address/NPSN/NSM/timezone, isolate data.
   - Acceptance: Switch school does not leak rows; logo validates file.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **CFG-03 [P0] Level presets**
+- [x] **CFG-03 [P0] Level presets**
   - Implementasi: SD/MI SMP/MTs SMA/MA SMK PKBM custom grade labels and order.
   - Acceptance: Tambah level nonnumerik tanpa code.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **CFG-04 [P0] Exam types**
+- [x] **CFG-04 [P0] Exam types**
   - Implementasi: STS/SAS/SAT/custom labels, default mode and terminology.
   - Acceptance: Custom type appears in forms/documents.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **CFG-05 [P0] Number policies**
+- [x] **CFG-05 [P0] Number policies**
   - Implementasi: Format prefix/sequence/padding reset scope, preview.
   - Acceptance: Duplicate numbers blocked; no guess missing values.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **CFG-06 [P0] Config validator**
+- [x] **CFG-06 [P0] Config validator**
   - Implementasi: Typed settings and extension fields, default/reset, revision.
   - Acceptance: Invalid settings rejected; existing archived snapshots unchanged.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
 
 ## MST — Master data
 Dependensi modul awal: CFG. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **MST-01 [P0] Students**
+- [x] **MST-01 [P0] Students**
   - Implementasi: Table, CRUD modal, text IDs, active/inactive, optional photo/accommodation.
   - Acceptance: Duplicate NIS blocked; optional NISN warning; referenced delete protected.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **MST-02 [P0] Staff**
+- [x] **MST-02 [P0] Staff**
   - Implementasi: CRUD teacher/TU/external invigilator, staff code, roles, availability link.
   - Acceptance: External staff accepted without NIP; unique code.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **MST-03 [P0] Classes**
+- [x] **MST-03 [P0] Classes**
   - Implementasi: CRUD year, level, rombel, program, enrollment move.
   - Acceptance: Same label in different year allowed; one active enrollment/year.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **MST-04 [P0] Subjects**
+- [x] **MST-04 [P0] Subjects**
   - Implementasi: CRUD code/name/category, teacher class subject relation.
   - Acceptance: Own-subject rule has complete mapping or warns.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **MST-05 [P0] Rooms**
+- [x] **MST-05 [P0] Rooms**
   - Implementasi: CRUD capacity, mode, desk grid/disabled/accessible seats.
   - Acceptance: Derived active seat count respects cap.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **MST-06 [P0] Import wizard**
+- [x] **MST-06 [P0] Import wizard**
   - Implementasi: XLSX mapping, preview, duplicate policies skip/update explicit, error report, atomic commit.
   - Acceptance: Mixed invalid rows handled per chosen policy; leading zero preserved.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **MST-07 [P0] Export masters**
+- [x] **MST-07 [P0] Export masters**
   - Implementasi: XLSX with text identifier cells, filtered/all scope.
   - Acceptance: Export count matches scope; formula injection prevented.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **MST-08 [P0] Data quality**
+- [x] **MST-08 [P0] Data quality**
   - Implementasi: Missing fields, duplicates, inconsistent enrollment, fix links.
   - Acceptance: Issue list actionable; no silent merge.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
 
 ## EVT — Exam workspace
 Dependensi modul awal: MST. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **EVT-01 [P0] Event wizard**
+- [x] **EVT-01 [P0] Event wizard**
   - Implementasi: Create title/year/semester/date/mode/type, select eligible classes/students.
   - Acceptance: End date >= start; no participant outside selection.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **EVT-02 [P0] Snapshot**
+- [x] **EVT-02 [P0] Snapshot**
   - Implementasi: Copy participants/staff/rooms/subjects/teaching relations and settings to versioned event.
   - Acceptance: Changing master does not rewrite published plan.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **EVT-03 [P0] Participant numbering**
+- [x] **EVT-03 [P0] Participant numbering**
   - Implementasi: Generate preview with prefix/pad/order, manual override unique.
   - Acceptance: Collision blocks publish; printed cards stale after change.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **EVT-04 [P0] Group management**
+- [x] **EVT-04 [P0] Group management**
   - Implementasi: Exam groups class/program/custom membership, requirements and attempts.
   - Acceptance: Group membership validated; no conflicting duplicate requirements.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **EVT-05 [P0] Lifecycle**
+- [x] **EVT-05 [P0] Lifecycle**
   - Implementasi: DRAFT/PREPARATION/READY/RUNNING/COMPLETED/ARCHIVED policy gates.
   - Acceptance: Cannot READY with hard conflicts; reopen audited.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **EVT-06 [P0] Event clone**
+- [x] **EVT-06 [P0] Event clone**
   - Implementasi: Copy selected configuration, not transactions/presences/old document numbers.
   - Acceptance: New event clean and source preserved.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **EVT-07 [P0] Dashboard**
+- [x] **EVT-07 [P0] Dashboard**
   - Implementasi: Derived counts, readiness checklist, deadline, next session, actionable problems.
   - Acceptance: No fake KPI; zero/empty handled correctly.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
 
 ## SES — Exam timetable
 Dependensi modul awal: EVT. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **SES-01 [P0] Calendar**
+- [x] **SES-01 [P0] Calendar**
   - Implementasi: Set exam dates, holidays, break windows, local timezones.
   - Acceptance: Overnight/overlap rejected per policy.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **SES-02 [P0] Sessions**
+- [x] **SES-02 [P0] Sessions**
   - Implementasi: Create start/end/duration, labels, order, room mode.
   - Acceptance: Distinct IDs with overlapping intervals detected.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **SES-03 [P0] Subject mapping**
+- [x] **SES-03 [P0] Subject mapping**
   - Implementasi: Map group/subject to eligible sessions, manual assignment.
   - Acceptance: Every required paper assigned exactly once before publish.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **SES-04 [P0] Timetable grid**
+- [x] **SES-04 [P0] Timetable grid**
   - Implementasi: Date/session/grade tabs, room rows, move/lock actions.
   - Acceptance: Move respects conflicts and locked cells.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **SES-05 [P0] Validator**
+- [x] **SES-05 [P0] Validator**
   - Implementasi: Independent participant, room, mode, duration, availability checks.
   - Acceptance: Detailed conflicting IDs and resolution path.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **SES-06 [P0] Plan revisions**
+- [x] **SES-06 [P0] Plan revisions**
   - Implementasi: Draft/validated/published/superseded, optimistic revision and atomic publish.
   - Acceptance: Stale input blocks publish; prior plan retained.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **SES-07 [P1] Schedule auto generation**
+- [x] **SES-07 [P1] Schedule auto generation**
   - Implementasi: CP-SAT optional timetable generator with preferences and time limit.
   - Acceptance: Feasible draft or diagnostics; no partial publish.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
 
 ## ROM — Room allocation and denah
 Dependensi modul awal: SES. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **ROM-01 [P0] Room editor**
+- [x] **ROM-01 [P0] Room editor**
   - Implementasi: Grid rows/cols, seats per desk, disabled cells, board orientation, accessible seats.
   - Acceptance: Capacity reflects enabled slots; coordinates bounded.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **ROM-02 [P0] Allocation policy**
+  - Bukti: `RoomLayoutUpdatePayload` + `RomService.update_room_layout` + modal tata letak; `tests/unit/test_rom.py`, `tests/integration/test_rom_bridge.py`.
+- [x] **ROM-02 [P0] Allocation policy**
   - Implementasi: Mix grade/rombel/custom/ordered, hard vs soft, balance and accommodations.
   - Acceptance: Hard options distinguished; impossible mix explained.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **ROM-03 [P0] Candidate builder**
+  - Bukti: `AllocationPolicy` + preflight/INFEASIBLE diagnostics di `solver.py`; `tests/unit/test_rom.py`.
+- [x] **ROM-03 [P0] Candidate builder**
   - Implementasi: Eligible participants, scope, room modes, locks and seat candidates.
   - Acceptance: No unavailable seat or noneligible candidate.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **ROM-04 [P0] Solver**
+  - Bukti: `RomService._build_candidates` + `validate_seating_allocation`; `tests/integration/test_rom_bridge.py`.
+- [x] **ROM-04 [P0] Solver**
   - Implementasi: CP-SAT/heuristic allocation with seed, penalties, time budget.
   - Acceptance: Unique occupancy and each eligible person once; validator pass.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **ROM-05 [P0] Diagnostics**
+  - Bukti: `solve_seating` (OR-Tools CP-SAT) + validator independen; `tests/unit/test_rom.py`, `tests/integration/test_rom_bridge.py`.
+- [x] **ROM-05 [P0] Diagnostics**
   - Implementasi: Capacity shortfall, same-level adjacency counts, accommodation conflict.
   - Acceptance: No silent relaxation; display remaining soft violations.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **ROM-06 [P0] Canvas**
+  - Bukti: `validator.py` + panel Diagnostik di `SeatingPage.tsx`.
+- [x] **ROM-06 [P0] Canvas**
   - Implementasi: Konva room grid, labeled seats, zoom/pan, accessible list alternate.
   - Acceptance: Keyboard swap works; labels not color alone.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **ROM-07 [P0] Manual adjustments**
+  - Bukti: `frontend/src/features/rom/SeatingPage.tsx` (`Stage`/`Layer`/`Rect`/`Text` + tabel akses keyboard); `frontend/src/rom.test.tsx`.
+- [x] **ROM-07 [P0] Manual adjustments**
   - Implementasi: Drag/swap, lock, undo/redo, revision validation.
   - Acceptance: Atomic swap; rejected conflict does not modify layout.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **ROM-08 [P0] Publish & print**
+  - Bukti: `RomService.swap_seats`, `set_seat_lock`, undo/redo stack; `tests/integration/test_rom_bridge.py`.
+- [x] **ROM-08 [P0] Publish & print**
   - Implementasi: Freeze allocation version, document stale flags and denah context.
   - Acceptance: Reprint old plan unchanged; new draft after edit.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+  - Bukti: `RomService.get_print_context` + freeze pada `published`/`superseded`; `tests/integration/test_rom_bridge.py`.
 
 ## SCH — Invigilation scheduling
 Dependensi modul awal: SES, ROM. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **SCH-01 [P0] Availability**
+- [x] **SCH-01 [P0] Availability**
   - Implementasi: Per staff date/session interval, unavailable reasons, limits, role skills.
   - Acceptance: Overlap not based only on session ID.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **SCH-02 [P0] Requirements**
+  - Bukti: `StaffAvailability`, `StaffProfile`, `intervals_overlap` di `validator.py`; `tests/unit/test_sch.py`, `tests/integration/test_sch_bridge.py`.
+- [x] **SCH-02 [P0] Requirements**
   - Implementasi: Per room-session primary/secondary/proctor/backup slots.
   - Acceptance: Slot counts configurable by mode.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **SCH-03 [P0] Solver rules**
+  - Bukti: `InvigilationSlot`, `SchService.configure_slots`; `tests/integration/test_sch_bridge.py`.
+- [x] **SCH-03 [P0] Solver rules**
   - Implementasi: Hard/soft own class/mapel, max daily/total, fixed locks, workload preferences.
   - Acceptance: All hard checks independent; weights documented.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **SCH-04 [P0] Optimizer**
+  - Bukti: `InvigilationRules` + `validate_invigilation_schedule` independen; `tests/unit/test_sch.py`.
+- [x] **SCH-04 [P0] Optimizer**
   - Implementasi: Local CP-SAT model and diagnostics, seed/time limit, result status.
   - Acceptance: Feasible complete draft; infeasible/unknown not published.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **SCH-05 [P0] Workload**
+  - Bukti: `solve_invigilation` + tabel `solver_runs`; `tests/unit/test_sch.py`, `tests/integration/test_sch_bridge.py`.
+- [x] **SCH-05 [P0] Workload**
   - Implementasi: Counts per staff/day, min/max, deviation, soft rule summary.
   - Acceptance: Counts match assignment list; weighted part-time target supported.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **SCH-06 [P0] Grid review**
+  - Bukti: `workload` & `summary` di `validator.py` + tab Beban Kerja di `InvigilationPage.tsx`.
+- [x] **SCH-06 [P0] Grid review**
   - Implementasi: Filter date/person/room, manual replace, lock, conflict display.
   - Acceptance: Replacement validates overlap and availability.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **SCH-07 [P0] Publish**
+  - Bukti: `SchService.assign_invigilator` + `InvigilationPage.tsx` (`Grid Jadwal Pengawas`); `frontend/src/sch.test.tsx`.
+- [x] **SCH-07 [P0] Publish**
   - Implementasi: Atomic versioned schedule, stale document invalidation and approval.
   - Acceptance: Concurrent edit rejects outdated draft.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **SCH-08 [P0] Reserve**
+  - Bukti: `expected_revision` guard + `ses.plans.publish` pada draf tervalidasi; `tests/integration/test_sch_bridge.py`.
+- [x] **SCH-08 [P0] Reserve**
   - Implementasi: Assign stand-by staff separately, nonoverlap and replacement path.
   - Acceptance: Reserve not counted as active duty until actual assignment.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+  - Bukti: `InvigilationReserve`, `assign_reserve`, `remove_reserve`, terpisah dari `active_count`; `tests/unit/test_sch.py`, `tests/integration/test_sch_bridge.py`.
 
 ## COM — Committee and meetings
 Dependensi modul awal: EVT. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **COM-01 [P1] Role tree**
+- [x] **COM-01 [P1] Role tree**
   - Implementasi: Dynamic role CRUD, parent relation, sort, multiple members.
   - Acceptance: Cycle rejected; role labels custom.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **COM-02 [P1] Membership**
+  - Bukti: `ComService.save_role` + `_would_create_cycle`; `tests/integration/test_com_bridge.py`.
+- [x] **COM-02 [P1] Membership**
   - Implementasi: Assign staff/external people, role date, job description.
   - Acceptance: No duplicate member within role; same person may have multiple roles.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **COM-03 [P1] Organization chart**
+  - Bukti: `CommitteeMember` (`uq_com_role_person`) + `ComService.assign_member`; `tests/integration/test_com_bridge.py`.
+- [x] **COM-03 [P1] Organization chart**
   - Implementasi: Tree layout, export data to structure document.
   - Acceptance: All roles present; long names wrap.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **COM-04 [P1] Program kerja**
+  - Bukti: `build_org_tree` + `OrgNodeView` (`wordBreak: "break-word"`) di `CommitteePage.tsx`; `tests/unit/test_com.py`, `frontend/src/com.test.tsx`.
+- [x] **COM-04 [P1] Program kerja**
   - Implementasi: Editable objectives, basis, milestones, jobdesc and sections.
   - Acceptance: No invented regulation; snapshots used for LPJ.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **COM-05 [P1] Meeting records**
+  - Bukti: `ProgramKerja` + `ComService.save_program_kerja` + tab Program Kerja; `tests/integration/test_com_bridge.py`.
+- [x] **COM-05 [P1] Meeting records**
   - Implementasi: Agenda, invitation, minutes, decisions, attendance.
   - Acceptance: Each attendee once; date/time preserved.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **COM-06 [P1] Signatories**
+  - Bukti: `Meeting`, `MeetingAttendance` (`uq_meeting_attendance_person`); `tests/integration/test_com_bridge.py`.
+- [x] **COM-06 [P1] Signatories**
   - Implementasi: Multi signer roles, position, names, dates, optional signature asset.
   - Acceptance: Missing required signer blocks final docs; no auto forged signature.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+  - Bukti: `ExamSignatory` + `validate_signatories_list`; `tests/unit/test_com.py`, `tests/integration/test_com_bridge.py`.
 
 ## TSK — Tasks
 Dependensi modul awal: COM. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **TSK-01 [P1] Task presets**
+- [x] **TSK-01 [P1] Task presets**
   - Implementasi: Reusable preparation/implementation/closing template with offsets.
   - Acceptance: Relative due dates recalc to event; editable.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **TSK-02 [P1] Task table**
+  - Bukti: `STANDARD_PRESET_ITEMS` + `TskService.apply_preset`; `tests/integration/test_tsk_bridge.py`.
+- [x] **TSK-02 [P1] Task table**
   - Implementasi: CRUD title/PIC/priority/deadline/status, search and filters.
   - Acceptance: Required fields inline; missing PIC flagged.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **TSK-03 [P1] Dependencies**
+  - Bukti: `TasksPage.tsx` (pencarian, filter, flag `Belum ada PIC`) + `TskService.save_task`; `frontend/src/tsk.test.tsx`.
+- [x] **TSK-03 [P1] Dependencies**
   - Implementasi: DAG and subtasks, blocked reason, done validation.
   - Acceptance: Cycles blocked; completion policy enforced.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **TSK-04 [P1] Timeline**
+  - Bukti: `has_dependency_cycle` + `_validate_done_policy`; `tests/unit/test_tsk.py`, `tests/integration/test_tsk_bridge.py`.
+- [x] **TSK-04 [P1] Timeline**
   - Implementasi: List/calendar view and overdue counts.
   - Acceptance: Local date timezone correct; archived readonly.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **TSK-05 [P1] Evidence**
+  - Bukti: `ZoneInfo(inst.timezone)` di `get_detail` + `_require_mutable` + tab Timeline di `TasksPage.tsx`.
+- [x] **TSK-05 [P1] Evidence**
   - Implementasi: Attach file, note, completion date and actor.
   - Acceptance: Asset validated; audit records state transitions.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+  - Bukti: `TaskEvidencePayload` + `attach_evidence` + `AuditEvent`; `tests/unit/test_tsk.py`, `tests/integration/test_tsk_bridge.py`.
 
 ## EXP — Ekspedisi and material
 Dependensi modul awal: EVT, COM. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **EXP-01 [P1] Requirement matrix**
+- [x] **EXP-01 [P1] Requirement matrix**
   - Implementasi: Per class/subject/paper expected kisi-kisi, naskah, kunci, kartu soal, nilai.
   - Acceptance: Custom item type; no duplicate expected record.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **EXP-02 [P1] Receipt**
+  - Bukti: `SubmissionItem` (`uq_sub_item_key`), `ExpService.generate_matrix`, `save_item`; `tests/integration/test_exp_bridge.py`.
+- [x] **EXP-02 [P1] Receipt**
   - Implementasi: Receive dates, owner, reviewer, revision, attach file.
   - Acceptance: Replacement creates version; prior validation invalidated.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **EXP-03 [P1] Review**
+  - Bukti: `SubmissionVersion` + `receive_submission` (reset ke `received`); `tests/integration/test_exp_bridge.py`.
+- [x] **EXP-03 [P1] Review**
   - Implementasi: Status transition received/revision/valid/ready, notes and approval.
   - Acceptance: Invalid transition rejected; history available.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **EXP-04 [P1] Print quantities**
+  - Bukti: `validate_review_transition` + `review_submission`; `tests/unit/test_exp.py`, `tests/integration/test_exp_bridge.py`.
+- [x] **EXP-04 [P1] Print quantities**
   - Implementasi: Room/paper quantities + reserve, check CBT excludes paper when configured.
   - Acceptance: Totals reconcile roster; manual override audited.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **EXP-05 [P1] Handover**
+  - Bukti: `PrintQuantity`, `compute_print_quantities`, `override_print_quantity` + `AuditEvent`; `tests/integration/test_exp_bridge.py`.
+- [x] **EXP-05 [P1] Handover**
   - Implementasi: Record sender/receiver, material type, count, time, discrepancy.
   - Acceptance: Quantity nonnegative; mismatch flagged.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **EXP-06 [P1] Reports**
+  - Bukti: `HandoverRecordPayload` (`ge=0`) + `record_handover` (`mismatch`); `tests/unit/test_exp.py`, `tests/integration/test_exp_bridge.py`.
+- [x] **EXP-06 [P1] Reports**
   - Implementasi: Matrix filters, late list, export expedition, packaging labels.
   - Acceptance: Counts agree with expected items, missing visible.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+  - Bukti: `ExpService.get_detail` (`counts`, `is_late`) + `ExpeditionPage.tsx`; `frontend/src/exp.test.tsx`.
 
 ## OPS — Exam execution
 Dependensi modul awal: SCH, EXP. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **OPS-01 [P1] Session monitor**
+- [x] **OPS-01 [P1] Session monitor**
   - Implementasi: Actual state scheduled/in progress/finished, per room progress.
   - Acceptance: Unrecorded not marked absent; counts derived.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **OPS-02 [P1] Student attendance**
+  - Bukti: `RoomSessionState`, `derive_attendance_counts`; `tests/unit/test_ops.py`, `tests/integration/test_ops_bridge.py`.
+- [x] **OPS-02 [P1] Student attendance**
   - Implementasi: Bulk mark/individual edit, status, date, notes, save by room-session.
   - Acceptance: Each sitting once; bulk action preview.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **OPS-03 [P1] Staff attendance**
+  - Bukti: `ParticipantAttendance` (`sitting_id` UQ) + `mark_student_attendance`; `tests/integration/test_ops_bridge.py`, `frontend/src/ops.test.tsx`.
+- [x] **OPS-03 [P1] Staff attendance**
   - Implementasi: Planned vs actual, absence/substitute, validation/approval.
   - Acceptance: Actual replacement no overlap; original plan intact.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **OPS-04 [P1] Committee attendance**
+  - Bukti: `StaffAttendance` + validasi `intervals_overlap` di `mark_staff_attendance`.
+- [x] **OPS-04 [P1] Committee attendance**
   - Implementasi: Day/shift records, custom status, role filter.
   - Acceptance: Unique person/day/shift.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **OPS-05 [P1] Berita acara**
+  - Bukti: `CommitteeAttendance` (`uq_com_att_day_shift`) + `mark_committee_attendance`; `tests/integration/test_ops_bridge.py`.
+- [x] **OPS-05 [P1] Berita acara**
   - Implementasi: Per room session, derived counts, editable remarks, signer and finalize.
   - Acceptance: Missing attendance warning; finalized snapshot immutable.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **OPS-06 [P1] Incident log**
+  - Bukti: `SessionReport` + `save_session_report` (warning unrecorded, immutable setelah finalize); `tests/integration/test_ops_bridge.py`.
+- [x] **OPS-06 [P1] Incident log**
   - Implementasi: Late, violation, technical issue, action/resolution, confidentiality.
   - Acceptance: Sensitive notes not exported unless selected.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **OPS-07 [P1] Make-up**
+  - Bukti: `Incident` + `include_confidential` guard di `OpsService.get_detail`; `tests/integration/test_ops_bridge.py`.
+- [x] **OPS-07 [P1] Make-up**
   - Implementasi: Eligibility from absence, new session/room assignment, linked original.
   - Acceptance: Original absence preserved; no duplicate sitting or honor.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **OPS-08 [P1] Closing checklist**
+  - Bukti: `MakeupLink` + `create_makeup`; `tests/integration/test_ops_bridge.py`.
+- [x] **OPS-08 [P1] Closing checklist**
   - Implementasi: Handover and collection completeness, outstanding issues, completion gate.
   - Acceptance: Blocked if configured mandatory items missing.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+  - Bukti: `OpsService.complete_closing`; `tests/integration/test_ops_bridge.py`.
 
 ## TPL — Template and branding
 Dependensi modul awal: UI, CFG. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **TPL-01 [P0] Letterhead manual**
+- [x] **TPL-01 [P0] Letterhead manual**
   - Implementasi: Fields, one/two logos, alignment, line style, paper and preview.
   - Acceptance: Long school name wraps; PNG transparent supported.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **TPL-02 [P0] Upload letterhead**
+  - Bukti: `LetterheadManualPayload` + `TplService.save_manual_letterhead`; `tests/integration/test_tpl_bridge.py`.
+- [x] **TPL-02 [P0] Upload letterhead**
   - Implementasi: Image upload crop/fit, embedded DOCX kop, version storage.
   - Acceptance: Invalid image rejected; aspect preserved.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **TPL-03 [P0] Template catalog**
+  - Bukti: `validate_image_bytes` + `upload_image_letterhead`; `tests/unit/test_tpl.py`, `tests/integration/test_tpl_bridge.py`.
+- [x] **TPL-03 [P0] Template catalog**
   - Implementasi: Built-ins by type, clone/custom/version/activate, default per event.
   - Acceptance: Existing document points to original version.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **TPL-04 [P0] Word mapping**
+  - Bukti: `BUILTIN_DOC_TYPES` + `TemplateRecord` berversi imutabel + `save_template`; `tests/integration/test_tpl_bridge.py`.
+- [x] **TPL-04 [P0] Word mapping**
   - Implementasi: Upload docx, extract allowlisted placeholders, map fields, validation.
   - Acceptance: Unknown tags shown; macro/external relationships rejected.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **TPL-05 [P0] Layout settings**
+  - Bukti: `inspect_docx_bytes` + `ALLOWLISTED_PLACEHOLDERS`; `tests/unit/test_tpl.py`, `tests/integration/test_tpl_bridge.py`.
+- [x] **TPL-05 [P0] Layout settings**
   - Implementasi: Paper/margins/font/signature/columns/body clauses, preview.
   - Acceptance: F4 explicit size; no clipped text/rows.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **TPL-06 [P1] Brand editor**
+  - Bukti: `PAPER_DIMENSIONS_MM["F4"] = (215.0, 330.0)` + `LayoutSettings`; `tests/integration/test_tpl_bridge.py`, `frontend/src/tpl.test.tsx`.
+- [x] **TPL-06 [P1] Brand editor**
   - Implementasi: App identity, palette/density/sidebar/theme presets preview and reset.
   - Acceptance: Contrast rejection, per-school persistence and no arbitrary CSS.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+  - Bukti: `contrast_ratio` (`>= 4.5:1`) + `ThemeProfile` per lembaga; `tests/unit/test_tpl.py`, `tests/integration/test_tpl_bridge.py`.
 - [ ] **TPL-07 [P2] Visual canvas**
   - Implementasi: P2 drag/text/logo/table/QR variable binding, grid snap, keyboard alternative.
   - Acceptance: Schema bounds validated; print coordinates match preview.
@@ -438,97 +438,97 @@ Dependensi modul awal: UI, CFG. Dependency item di bawah bersifat gate, bukan ur
 
 ## DOC — Document engine
 Dependensi modul awal: TPL, SCH. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **DOC-01 [P0] Context builder**
+- [x] **DOC-01 [P0] Context builder**
   - Implementasi: Typed context per scope, plan revision and data validation.
   - Acceptance: Missing required field blocks final export.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **DOC-02 [P0] DOCX renderer**
+  - Bukti: `DocService._build_context` (blokir nomor peserta/penanda tangan wajib kosong pada final); `tests/integration/test_doc_bridge.py`.
+- [x] **DOC-02 [P0] DOCX renderer**
   - Implementasi: Sandbox docxtpl, tables, loops, signatures, editable output.
   - Acceptance: Valid DOCX and golden inspection; no arbitrary execution.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **DOC-03 [P0] PDF renderer**
+  - Bukti: `render_docx_bytes` (`SandboxedEnvironment` + `python-docx`); `tests/unit/test_doc.py`.
+- [x] **DOC-03 [P0] PDF renderer**
   - Implementasi: ReportLab flowables, page templates, fonts, repeating header and page break.
   - Acceptance: Long name and table fit; signatory stays together.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **DOC-04 [P0] Document center**
+  - Bukti: `render_pdf_bytes` (`Paragraph`, `repeatRows=1`, `KeepTogether`, `A4`/`F4`); `tests/unit/test_doc.py`.
+- [x] **DOC-04 [P0] Document center**
   - Implementasi: Catalog, scope and template picker, preview, export/print.
   - Acceptance: Correct scope shown; loading/cancel/error work.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **DOC-05 [P0] Batch jobs**
+  - Bukti: `DocumentCenterPage.tsx` + `doc.generate`; `frontend/src/doc.test.tsx`.
+- [x] **DOC-05 [P0] Batch jobs**
   - Implementasi: Individual/combined PDF, ZIP of DOCX, safe filenames, collision policy.
   - Acceptance: 200 cards correct count; atomic cancel and cleanup.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **DOC-06 [P0] Number registry**
+  - Bukti: `DocService.generate_batch` + `sanitize_filename`; `tests/unit/test_doc.py`, `tests/integration/test_doc_bridge.py`.
+- [x] **DOC-06 [P0] Number registry**
   - Implementasi: Reserve unique numbering only on final generate; void on failure.
   - Acceptance: Preview does not consume number; duplicates blocked.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **DOC-07 [P0] Version history**
+  - Bukti: `DocumentNumber` + `generate_document` (`is_final` only); `tests/integration/test_doc_bridge.py`.
+- [x] **DOC-07 [P0] Version history**
   - Implementasi: Store context hash/template/plan/output hash, stale indicator and reprint.
   - Acceptance: Archived output byte-identical; stale flagged.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **DOC-08 [P0] XLSX export**
+  - Bukti: `DocumentRun`, `get_detail` (`is_stale`), `reprint_document` (verifikasi SHA-256); `tests/integration/test_doc_bridge.py`.
+- [x] **DOC-08 [P0] XLSX export**
   - Implementasi: Typed cells, styles, column widths, repeat print headings.
   - Acceptance: Leading zeros and currency numeric types preserved.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **DOC-09 [P0] Print integration**
+  - Bukti: `render_xlsx_bytes` (`@` text & `#,##0` numeric, `print_title_rows`); `tests/unit/test_doc.py`.
+- [x] **DOC-09 [P0] Print integration**
   - Implementasi: Native PDF preview/print dialog workflow, scale and page options.
   - Acceptance: Works offline; print cancellation leaves no fake success.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+  - Bukti: `window.print()` offline & `doc.reprint` arsip lokal pada `DocumentCenterPage.tsx`.
 
 ## FIN — Budget and finance
 Dependensi modul awal: COM, OPS. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **FIN-01 [P1] Budget categories**
+- [x] **FIN-01 [P1] Budget categories**
   - Implementasi: Custom category hierarchy, source funds and unit definitions.
   - Acceptance: Cycle prevented; archived category retained.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **FIN-02 [P1] RAB editor**
+  - Bukti: `BudgetCategory`, `save_category` (`_would_create_cat_cycle`), `archive_category`; `tests/integration/test_fin_bridge.py`.
+- [x] **FIN-02 [P1] RAB editor**
   - Implementasi: Qty, unit, rate integer, rounding policy and subtotal/total, version approval.
   - Acceptance: Calculated totals exact; invalid negative qty rejected.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **FIN-03 [P1] Ledger**
+  - Bukti: `compute_line_amount_idr` (`Decimal` `ROUND_HALF_UP`), `BudgetLineSavePayload`; `tests/unit/test_fin.py`, `tests/integration/test_fin_bridge.py`.
+- [x] **FIN-03 [P1] Ledger**
   - Implementasi: Income/expense draft approval posted, date/reference/payee, attachments.
   - Acceptance: Posted record immutable; reversal links and totals correct.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **FIN-04 [P1] Budget variance**
+  - Bukti: `LedgerEntry` (`uq_ledger_reverses_id`), `post_ledger_entry`, `reverse_ledger_entry`; `tests/integration/test_fin_bridge.py`.
+- [x] **FIN-04 [P1] Budget variance**
   - Implementasi: Compare approved RAB vs actual by category, warning/policy block.
   - Acceptance: No float drift; source totals reconcile.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **FIN-05 [P1] Honor rules**
+  - Bukti: `variance` integer IDR di `FinService.get_detail`; `frontend/src/fin.test.tsx`.
+- [x] **FIN-05 [P1] Honor rules**
   - Implementasi: Per role/session/day/fixed rate with effective snapshot.
   - Acceptance: Rate change not retroactive without adjustment.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **FIN-06 [P1] Honor generation**
+  - Bukti: `HonorRule` + `save_honor_rule` + snapshot `rate_idr` di `HonorLine`.
+- [x] **FIN-06 [P1] Honor generation**
   - Implementasi: Approved actual staff duty + committee records, dedupe source keys.
   - Acceptance: Replacement paid per actual policy; rerun not duplicate.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **FIN-07 [P1] Payment & receipt**
+  - Bukti: `generate_honor_lines` (`uq_honor_source_role`, membayar `actual_person_id`); `tests/integration/test_fin_bridge.py`.
+- [x] **FIN-07 [P1] Payment & receipt**
   - Implementasi: Generate payment list/kuitansi, amount in words, mark payment linked entry.
   - Acceptance: No double-post; draft preview no cash impact.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **FIN-08 [P1] Finance reports**
+  - Bukti: `terbilang_idr` + `pay_honor_line` (`source_key = f"honor:{hl.id}"`); `tests/unit/test_fin.py`, `tests/integration/test_fin_bridge.py`.
+- [x] **FIN-08 [P1] Finance reports**
   - Implementasi: Cashbook running balance, rekap honor, RAB/realisasi and export.
   - Acceptance: Closing balance equals ledger; filters explicit.
-  - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
+  - Bukti: `cashbook` + `closing_balance_idr` di `FinService.get_detail`; `tests/integration/test_fin_bridge.py`.
 
 ## LPJ — Reporting and LPJ
 Dependensi modul awal: FIN, OPS, DOC. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **LPJ-01 [P1] LPJ builder**
+- [x] **LPJ-01 [P1] LPJ builder**
   - Implementasi: Structured sections, narrative editing, derived tables readonly.
   - Acceptance: Totals cannot be overwritten by narrative edit.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **LPJ-02 [P1] Evaluation**
+- [x] **LPJ-02 [P1] Evaluation**
   - Implementasi: Collect issues, resolutions, recommendations and PIC.
   - Acceptance: Links to incident where relevant; custom notes.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **LPJ-03 [P1] Attachments**
+- [x] **LPJ-03 [P1] Attachments**
   - Implementasi: Select documents/assets, order, manifest, preview.
   - Acceptance: Missing attachment blocks final or explicit exclusion.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **LPJ-04 [P1] Finalization**
+- [x] **LPJ-04 [P1] Finalization**
   - Implementasi: Snapshot source versions, reconcile ledger/attendance, draft/final approval.
   - Acceptance: Unbalanced/incomplete state blocked by policy; new revision after edit.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **LPJ-05 [P1] Export**
+- [x] **LPJ-05 [P1] Export**
   - Implementasi: DOCX and PDF with cover, approval, TOC/page index and appendix pack.
   - Acceptance: Readable multi-page layout, no missing pages, version preserved.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.

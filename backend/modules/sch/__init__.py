@@ -1,0 +1,1 @@
+"""SCH (Invigilation scheduling) module."""
