@@ -535,38 +535,38 @@ Dependensi modul awal: FIN, OPS, DOC. Dependency item di bawah bersifat gate, bu
 
 ## ARC — Archive
 Dependensi modul awal: LPJ. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **ARC-01 [P1] Archive browser**
+- [x] **ARC-01 [P1] Archive browser**
   - Implementasi: Filter academic year, type, event status, read-only detail.
   - Acceptance: Archived event no edit through bridge.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **ARC-02 [P1] Archive package**
+- [x] **ARC-02 [P1] Archive package**
   - Implementasi: ZIP docs + metadata/manifest/hashes, selective personal info.
   - Acceptance: Zip validates all expected files; no path traversal.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **ARC-03 [P1] Duplicate**
+- [x] **ARC-03 [P1] Duplicate**
   - Implementasi: Clone policies and template references, not actuals.
   - Acceptance: New event starts draft; source history remains.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **ARC-04 [P1] Retention**
+- [x] **ARC-04 [P1] Retention**
   - Implementasi: Review data age, authorized deletion with backup and impact preview.
   - Acceptance: No dangling references; last good backup retained.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
 
 ## BAK — Backup and recovery
 Dependensi modul awal: FND. Dependency item di bawah bersifat gate, bukan urutan kaku antar seluruh modul.
-- [ ] **BAK-01 [P0] Backup**
+- [x] **BAK-01 [P0] Backup**
   - Implementasi: SQLite backup API + asset manifest under consistent lock, atomic ZIP.
   - Acceptance: Restore test passes; checksum verification.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **BAK-02 [P0] Schedule**
+- [x] **BAK-02 [P0] Schedule**
   - Implementasi: Local periodic backup on startup/close, retention settings.
   - Acceptance: No silent delete last good; failure visible.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **BAK-03 [P0] Restore wizard**
+- [x] **BAK-03 [P0] Restore wizard**
   - Implementasi: Validate paths/hash/schema, preview counts, stage, backup current, atomic swap.
   - Acceptance: Corrupt backup leaves current unchanged.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.
-- [ ] **BAK-04 [P0] Recovery**
+- [x] **BAK-04 [P0] Recovery**
   - Implementasi: Interrupted job cleanup, integrity check, repair guidance and diagnostics.
   - Acceptance: Crash simulated; no partial publish or orphan visible.
   - Bukti: test/visual check atau log yang sesuai; catat di PR dan tautkan ID.

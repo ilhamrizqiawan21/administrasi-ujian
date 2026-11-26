@@ -16,6 +16,26 @@ from backend.bridge.schemas import BridgeRequest, EmptyPayload, JobIdPayload
 from backend.core.app_shell import AppRuntime
 from backend.core.errors import AppError
 from backend.core.logging import reset_correlation_id, set_correlation_id
+from backend.modules.arc.schemas import (
+    ArcDuplicatePayload,
+    ArcExamScopedPayload,
+    ArcListPayload,
+    ArcPackageExportPayload,
+    ArcPackageVerifyPayload,
+    ArcRetentionPurgePayload,
+    ArcRetentionReviewPayload,
+)
+from backend.modules.arc.service import ArcService
+from backend.modules.bak.schemas import (
+    BakCreatePayload,
+    BakRecoveryPayload,
+    BakRestorePayload,
+    BakScheduleRunPayload,
+    BakScheduleSavePayload,
+    BakScopedPayload,
+    BakVerifyPayload,
+)
+from backend.modules.bak.service import BakService
 from backend.modules.cfg.schemas import (
     AcademicYearSavePayload,
     ExamTypeSavePayload,
@@ -335,6 +355,8 @@ class BridgeApi:
             self._register_doc_methods(runtime)
             self._register_fin_methods(runtime)
             self._register_lpj_methods(runtime)
+            self._register_arc_methods(runtime)
+            self._register_bak_methods(runtime)
 
     def _register_cfg_methods(self, runtime: AppRuntime) -> None:
         cfg = CfgService(runtime.session_factory, runtime.paths)
@@ -832,6 +854,63 @@ class BridgeApi:
         )
         self._registry.register("lpj.finalize", LpjFinalizePayload, lpj.finalize)
         self._registry.register("lpj.export", LpjExportPayload, lpj.export)
+
+    def _register_arc_methods(self, runtime: AppRuntime) -> None:
+        arc = ArcService(runtime.session_factory, runtime.paths)
+        self._registry.register(
+            "arc.events.list", ArcListPayload, arc.list_archive_events
+        )
+        self._registry.register(
+            "arc.events.detail", ArcExamScopedPayload, arc.get_event_detail
+        )
+        self._registry.register(
+            "arc.events.archive", ArcExamScopedPayload, arc.archive_event
+        )
+        self._registry.register(
+            "arc.package.export", ArcPackageExportPayload, arc.export_archive_package
+        )
+        self._registry.register(
+            "arc.package.verify", ArcPackageVerifyPayload, arc.verify_archive_package
+        )
+        self._registry.register(
+            "arc.events.duplicate", ArcDuplicatePayload, arc.duplicate_event
+        )
+        self._registry.register(
+            "arc.retention.review", ArcRetentionReviewPayload, arc.review_retention
+        )
+        self._registry.register(
+            "arc.retention.preview",
+            ArcExamScopedPayload,
+            arc.preview_retention_impact,
+        )
+        self._registry.register(
+            "arc.retention.purge", ArcRetentionPurgePayload, arc.purge_event
+        )
+
+    def _register_bak_methods(self, runtime: AppRuntime) -> None:
+        bak = BakService(runtime.session_factory, runtime.paths)
+        self._registry.register("bak.create", BakCreatePayload, bak.create_backup)
+        self._registry.register("bak.list", BakScopedPayload, bak.list_backups)
+        self._registry.register("bak.verify", BakVerifyPayload, bak.verify_backup)
+        self._registry.register("bak.schedule.get", BakScopedPayload, bak.get_schedule)
+        self._registry.register(
+            "bak.schedule.save", BakScheduleSavePayload, bak.save_schedule
+        )
+        self._registry.register(
+            "bak.schedule.run", BakScheduleRunPayload, bak.run_scheduled_backup
+        )
+        self._registry.register(
+            "bak.restore.preview", BakRestorePayload, bak.preview_restore
+        )
+        self._registry.register(
+            "bak.restore.apply", BakRestorePayload, bak.apply_restore
+        )
+        self._registry.register(
+            "bak.recovery.diagnose", BakScopedPayload, bak.diagnose_recovery
+        )
+        self._registry.register(
+            "bak.recovery.repair", BakRecoveryPayload, bak.repair_recovery
+        )
 
     def invoke(self, raw_request: dict[str, Any]) -> dict[str, Any]:
         req_id = (

@@ -924,6 +924,216 @@ export async function invokeDevMock(
         output_hash: "abcdef",
         byte_size: 4096,
       });
+    case "arc.events.list":
+      return ok({
+        items: [
+          {
+            id: "ex-1",
+            institution_id: "inst-1",
+            year_id: "yr-1",
+            year_label: "2026/2027",
+            exam_type_id: "et-1",
+            exam_type_label: "PAS",
+            title: "PAS Ganjil 2026",
+            semester_label: "Ganjil",
+            mode: "paper",
+            starts_on: "2026-12-01",
+            ends_on: "2026-12-05",
+            state: "ARCHIVED",
+            is_archived: true,
+            package_count: 1,
+            updated_at: "2026-12-06T00:00:00Z",
+          },
+        ],
+        years: [{ id: "yr-1", label: "2026/2027" }],
+        exam_types: [{ id: "et-1", label: "PAS" }],
+      });
+    case "arc.events.detail":
+      return ok({
+        exam: {
+          id: "ex-1",
+          institution_id: "inst-1",
+          year_id: "yr-1",
+          year_label: "2026/2027",
+          exam_type_id: "et-1",
+          exam_type_label: "PAS",
+          title: "PAS Ganjil 2026",
+          semester_label: "Ganjil",
+          mode: "paper",
+          starts_on: "2026-12-01",
+          ends_on: "2026-12-05",
+          state: "ARCHIVED",
+          is_archived: true,
+          active_plan_id: "plan-1",
+          package_count: 1,
+          updated_at: "2026-12-06T00:00:00Z",
+        },
+        counts: {
+          people: 40,
+          participants: 36,
+          rooms: 2,
+          subjects: 6,
+          plans: 1,
+          sessions: 4,
+          documents: 3,
+          lpj_versions: 1,
+          ledger_entries: 5,
+        },
+        documents: [],
+        packages: [
+          {
+            id: "pkg-1",
+            file_path: "exports/archives/archive_pas_ganjil.zip",
+            sha256: "abc123",
+            file_count: 4,
+            include_personal_info: false,
+            created_at: "2026-12-06T01:00:00Z",
+          },
+        ],
+      });
+    case "arc.events.archive":
+      return ok({ id: "ex-1", state: "ARCHIVED", is_archived: true });
+    case "arc.package.export":
+      return ok({
+        id: "pkg-1",
+        file_path: "exports/archives/archive_pas_ganjil.zip",
+        sha256: "abc123",
+        file_count: 4,
+        include_personal_info: false,
+        missing_files: [],
+        created_at: "2026-12-06T01:00:00Z",
+      });
+    case "arc.package.verify":
+      return ok({ package_id: "pkg-1", valid: true, checked_files: 3, errors: [] });
+    case "arc.events.duplicate":
+      return ok({
+        id: "ex-dup-1",
+        title: String(payload.title ?? "Salinan"),
+        state: "DRAFT",
+        source_exam_id: "ex-1",
+        cloned: { subjects: 6, groups: 2, roles: 3, budget_categories: 4 },
+      });
+    case "arc.retention.review":
+      return ok({
+        min_age_days: 365,
+        events: [
+          {
+            id: "ex-old",
+            title: "PAS Ganjil 2024",
+            year_label: "2024/2025",
+            exam_type_label: "PAS",
+            state: "ARCHIVED",
+            ends_on: "2024-12-06",
+            age_days: 720,
+            eligible_for_purge: true,
+          },
+        ],
+        backups: [],
+        last_good_backup: null,
+      });
+    case "arc.retention.preview":
+      return ok({
+        exam_id: "ex-old",
+        exam_title: "PAS Ganjil 2024",
+        state: "ARCHIVED",
+        can_purge: true,
+        blockers: [],
+        impact_counts: { documents: 3, participants: 36 },
+        total_affected_rows: 40,
+      });
+    case "arc.retention.purge":
+      return ok({
+        purged_exam_id: "ex-old",
+        purged_title: "PAS Ganjil 2024",
+        backup: {
+          id: "bak-1",
+          file_path: "backups/pre_purge_pas.sqlite",
+          sha256: "abc",
+          byte_size: 1024,
+        },
+      });
+    case "bak.list":
+      return ok({
+        items: [
+          {
+            id: "bak-1",
+            institution_id: "inst-1",
+            kind: "manual",
+            file_path: "backups/backup_manual_1.zip",
+            sha256: "abc123",
+            byte_size: 16384,
+            schema_revision: "0017_bak_tables",
+            status: "valid",
+            error_message: "",
+            exists_on_disk: true,
+            created_at: "2026-11-26T07:00:00Z",
+          },
+        ],
+      });
+    case "bak.create":
+      return ok({
+        id: "bak-2",
+        institution_id: "inst-1",
+        kind: "manual",
+        file_path: "backups/backup_manual_2.zip",
+        sha256: "def456",
+        byte_size: 18432,
+        schema_revision: "0017_bak_tables",
+        status: "valid",
+        error_message: "",
+        exists_on_disk: true,
+        created_at: "2026-11-26T07:10:00Z",
+      });
+    case "bak.verify":
+      return ok({ valid: true, errors: [], counts: { students: 40 } });
+    case "bak.schedule.get":
+    case "bak.schedule.save":
+      return ok({
+        institution_id: "inst-1",
+        auto_on_startup: true,
+        auto_on_close: true,
+        retention_count: 7,
+        last_run_at: null,
+        last_status: "idle",
+        last_error: "",
+      });
+    case "bak.schedule.run":
+      return ok({ executed: true, status: "ok", pruned_count: 0 });
+    case "bak.restore.preview":
+      return ok({
+        file_path: String(payload.file_path ?? "backups/backup_manual_1.zip"),
+        can_restore: true,
+        errors: [],
+        counts: { institutions: 1, students: 40, staff: 12, exams: 2 },
+      });
+    case "bak.restore.apply":
+      return ok({ restored: true });
+    case "bak.recovery.diagnose":
+      return ok({
+        healthy: true,
+        integrity_ok: true,
+        foreign_keys_ok: true,
+        interrupted_jobs: [],
+        temp_files: [],
+        missing_document_outputs: [],
+        guidance: [
+          "Sistem sehat: tidak ada job terhenti, file sementara, atau pelanggaran integritas.",
+        ],
+      });
+    case "bak.recovery.repair":
+      return ok({
+        cleaned_jobs: 0,
+        cleaned_temp_files: 0,
+        diagnostics: {
+          healthy: true,
+          integrity_ok: true,
+          foreign_keys_ok: true,
+          interrupted_jobs: [],
+          temp_files: [],
+          missing_document_outputs: [],
+          guidance: ["Sistem sehat."],
+        },
+      });
     default:
       return {
         ok: false,

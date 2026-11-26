@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
+  Archive,
   Banknote,
   Calendar,
   CheckSquare,
   ClipboardCheck,
   Cpu,
+  DatabaseBackup,
   FileCode2,
   FileSpreadsheet,
   Grid2x2,
@@ -29,6 +31,8 @@ import { DashboardPage } from "./features/evt/DashboardPage";
 import { EventsPage } from "./features/evt/EventsPage";
 import { FinancePage } from "./features/fin/FinancePage";
 import { LpjPage } from "./features/lpj/LpjPage";
+import { ArchivePage } from "./features/arc/ArchivePage";
+import { BackupPage } from "./features/bak/BackupPage";
 import type { ExamItem } from "./features/evt/types";
 import { MasterDataPage } from "./features/mst/MasterDataPage";
 import { ExecutionPage } from "./features/ops/ExecutionPage";
@@ -145,6 +149,12 @@ const NAV_GROUPS: NavGroup[] = [
         route: "/lpj",
         icon: <FileSpreadsheet size={18} aria-hidden="true" />,
       },
+      {
+        id: "archive",
+        label: "Arsip & Retensi",
+        route: "/archive",
+        icon: <Archive size={18} aria-hidden="true" />,
+      },
     ],
   },
   {
@@ -161,6 +171,12 @@ const NAV_GROUPS: NavGroup[] = [
         label: "Template & Kop",
         route: "/templates",
         icon: <FileCode2 size={18} aria-hidden="true" />,
+      },
+      {
+        id: "backup",
+        label: "Backup & Pemulihan",
+        route: "/backup",
+        icon: <DatabaseBackup size={18} aria-hidden="true" />,
       },
       {
         id: "diagnostik",
@@ -510,6 +526,11 @@ export function App() {
           institutionId={activeInstitution.id}
           activeExam={activeExam}
         />
+      ) : route === "/archive" && activeInstitution ? (
+        <ArchivePage
+          institutionId={activeInstitution.id}
+          onEventsChanged={() => void refreshBootstrap()}
+        />
       ) : route === "/master" && activeInstitution ? (
         <MasterDataPage institutionId={activeInstitution.id} />
       ) : route === "/pengaturan" && activeInstitution ? (
@@ -521,6 +542,11 @@ export function App() {
         />
       ) : route === "/templates" && activeInstitution ? (
         <TemplatesPage institutionId={activeInstitution.id} />
+      ) : route === "/backup" && activeInstitution ? (
+        <BackupPage
+          institutionId={activeInstitution.id}
+          onRestored={() => void refreshBootstrap()}
+        />
       ) : route === "/diagnostik" ? (
         <DataTable
           data={packageRows}

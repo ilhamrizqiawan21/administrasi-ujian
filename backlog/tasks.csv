@@ -118,14 +118,14 @@ LPJ-02,LPJ,P1,Evaluation,"Collect issues, resolutions, recommendations and PIC",
 LPJ-03,LPJ,P1,Attachments,"Select documents/assets, order, manifest, preview",Missing attachment blocks final or explicit exclusion,"FIN (gate terkait), OPS (gate terkait), DOC (gate terkait)",DONE
 LPJ-04,LPJ,P1,Finalization,"Snapshot source versions, reconcile ledger/attendance, draft/final approval",Unbalanced/incomplete state blocked by policy; new revision after edit,"FIN (gate terkait), OPS (gate terkait), DOC (gate terkait)",DONE
 LPJ-05,LPJ,P1,Export,"DOCX and PDF with cover, approval, TOC/page index and appendix pack","Readable multi-page layout, no missing pages, version preserved","FIN (gate terkait), OPS (gate terkait), DOC (gate terkait)",DONE
-ARC-01,ARC,P1,Archive browser,"Filter academic year, type, event status, read-only detail",Archived event no edit through bridge,LPJ (gate terkait),TODO
-ARC-02,ARC,P1,Archive package,"ZIP docs + metadata/manifest/hashes, selective personal info",Zip validates all expected files; no path traversal,LPJ (gate terkait),TODO
-ARC-03,ARC,P1,Duplicate,"Clone policies and template references, not actuals",New event starts draft; source history remains,LPJ (gate terkait),TODO
-ARC-04,ARC,P1,Retention,"Review data age, authorized deletion with backup and impact preview",No dangling references; last good backup retained,LPJ (gate terkait),TODO
-BAK-01,BAK,P0,Backup,"SQLite backup API + asset manifest under consistent lock, atomic ZIP",Restore test passes; checksum verification,FND (gate terkait),TODO
-BAK-02,BAK,P0,Schedule,"Local periodic backup on startup/close, retention settings",No silent delete last good; failure visible,FND (gate terkait),TODO
-BAK-03,BAK,P0,Restore wizard,"Validate paths/hash/schema, preview counts, stage, backup current, atomic swap",Corrupt backup leaves current unchanged,FND (gate terkait),TODO
-BAK-04,BAK,P0,Recovery,"Interrupted job cleanup, integrity check, repair guidance and diagnostics",Crash simulated; no partial publish or orphan visible,FND (gate terkait),TODO
+ARC-01,ARC,P1,Archive browser,"Filter academic year, type, event status, read-only detail",Archived event no edit through bridge,LPJ (gate terkait),DONE
+ARC-02,ARC,P1,Archive package,"ZIP docs + metadata/manifest/hashes, selective personal info",Zip validates all expected files; no path traversal,LPJ (gate terkait),DONE
+ARC-03,ARC,P1,Duplicate,"Clone policies and template references, not actuals",New event starts draft; source history remains,LPJ (gate terkait),DONE
+ARC-04,ARC,P1,Retention,"Review data age, authorized deletion with backup and impact preview",No dangling references; last good backup retained,LPJ (gate terkait),DONE
+BAK-01,BAK,P0,Backup,"SQLite backup API + asset manifest under consistent lock, atomic ZIP",Restore test passes; checksum verification,FND (gate terkait),DONE
+BAK-02,BAK,P0,Schedule,"Local periodic backup on startup/close, retention settings",No silent delete last good; failure visible,FND (gate terkait),DONE
+BAK-03,BAK,P0,Restore wizard,"Validate paths/hash/schema, preview counts, stage, backup current, atomic swap",Corrupt backup leaves current unchanged,FND (gate terkait),DONE
+BAK-04,BAK,P0,Recovery,"Interrupted job cleanup, integrity check, repair guidance and diagnostics",Crash simulated; no partial publish or orphan visible,FND (gate terkait),DONE
 LIC-01,LIC,P1,Policy,"Document Rp150k per school once, version scope/support/transfer and beta terms",Owner approves written terms,"FND (gate terkait), CFG (gate terkait)",TODO
 LIC-02,LIC,P1,Signer,"Separate offline license issuer key handling, signature format",Private key never in repo/app; tamper rejected,"FND (gate terkait), CFG (gate terkait)",TODO
 LIC-03,LIC,P1,Activation,"Import signed license, show institution/edition/status, offline validation",No network/PII telemetry; valid and invalid fixtures,"FND (gate terkait), CFG (gate terkait)",TODO

@@ -1,4 +1,18 @@
 # Changelog
+## 0.1.0-bak — 2026-11-26
+- **BAK-01..BAK-04**: Implemented Backup & Recovery vertical slice:
+  - Alembic migration `0017_bak_tables` (`backup_records`, `backup_schedule_settings`).
+  - `backend/modules/bak/{models,schemas,repository,service}.py` and bridge methods `bak.*`.
+  - `frontend/src/features/bak/{types.ts,BackupPage.tsx}` wired into `App.tsx` (`/backup`).
+  - Verified with `ruff`, `mypy --strict`, `pytest` (68/68), `eslint`, `tsc`, `vitest` (`bak.test.tsx`), and `vite build`.
+
+## 0.1.0-arc — 2026-11-26
+- **ARC-01..ARC-04**: Implemented Archive, Package, Duplicate & Retention vertical slice:
+  - Alembic migration `0016_arc_tables` (`archive_packages`, `retention_backups`).
+  - `backend/modules/arc/{models,schemas,repository,service}.py` and bridge methods `arc.*`.
+  - `frontend/src/features/arc/{types.ts,ArchivePage.tsx}` wired into `App.tsx` (`/archive`).
+  - Verified with `ruff`, `mypy --strict`, `pytest` (64/64), `eslint`, `tsc`, `vitest` (`arc.test.tsx`), and `vite build`.
+
 ## 0.1.0-lpj — 2026-11-25
 - **LPJ-01..LPJ-05**: Implemented Reporting & LPJ vertical slice:
   - Alembic migration `0015_lpj_tables` (`lpj_versions`, `lpj_evaluations`, `lpj_attachments`).
